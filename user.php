@@ -96,7 +96,7 @@ class user
   //function get by id
   static function getById($id)
   {
-    $conn = user::connection();
+    $conn = connection::conn();
     $query = "select * from user where user_id = ?";
     $stmt = $conn->prepare($query);
     if(!$stmt)
@@ -104,7 +104,7 @@ class user
       echo("faild preparing query ".$conn->error)."<br>";
       return false;
     }
-    // $stmt = user::connection("select * from user where id = ?");
+    // $stmt = connection::conn("select * from user where id = ?");
     $res = $stmt->bind_param('i', $id);
     if(!$res)
     {
@@ -127,7 +127,7 @@ class user
   static function getByUsername($username)
   {
     //$success = true;
-    $conn = user::connection();
+    $conn = connection::conn();
     $query = "select * from user where user_name = ?";
     $stmt = $conn->prepare($query);
     if(!$stmt)
@@ -157,7 +157,7 @@ class user
   static function getAll()
   {
       //$success = true;
-      $conn = user::connection();
+      $conn = connection::conn();
       $query = "select * from user";
       $stmt = $conn->prepare($query);
       if(!$stmt)
@@ -184,7 +184,7 @@ class user
   //function updated
   static function update($user)
   {
-      $conn = user::connection();
+      $conn = connection::conn();
       if($conn)
       {
           $query = "update user set user_id= ? , user_name= ? , first_name= ?, last_name= ?, pass= ? , email= ? ,birth_of_date= ? , gender= ?, job= ?, limitcredit= ? where user_id= ?";
@@ -221,7 +221,7 @@ class user
   //function delete
   static function delete($user)
   {
-      $conn = user::connection();
+      $conn = connection::conn();
       if($conn)
       {
           $query = "update user set is_deleted = 1   where user_id= ?";
