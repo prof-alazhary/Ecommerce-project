@@ -1,5 +1,6 @@
 <?php
 require 'config.php';
+require 'autoload.php';
 class user
 {
   private $user_id;
@@ -46,29 +47,29 @@ class user
   {
     $this->$attr = $value;
   }
-  static function connection()
-  {
-    $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
-    if($conn->connect_errno)
-    {
-      echo("connection to DB faild<br>".$conn->connect_error);
-      return false;
-    }
-    return $conn;//end open connection
-    // $query = $query;
-    // $stmt = $conn->prepare($query);
-    // if(!$stmt)
-    // {
-    //   echo("faild preparing query ".$conn->error)."<br>";
-    //   return false;
-    // }
-    // return $stmt;
-  }//end function connection
+  // static function connection()
+  // {
+  //   $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
+  //   if($conn->connect_errno)
+  //   {
+  //     echo("connection to DB faild<br>".$conn->connect_error);
+  //     return false;
+  //   }
+  //   return $conn;//end open connection
+  //   // $query = $query;
+  //   // $stmt = $conn->prepare($query);
+  //   // if(!$stmt)
+  //   // {
+  //   //   echo("faild preparing query ".$conn->error)."<br>";
+  //   //   return false;
+  //   // }
+  //   // return $stmt;
+  // }//end function connection
   //insert users
   function insert()
   {
     $success = true;
-    $conn = user::connection();
+    $conn = connection::conn();
     $query = "insert into user (user_id,user_name,first_name,last_name,pass,email,birth_of_date,gender,job,limitcredit,is_deleted,is_admin)values(null,?,?,?,?,?,?,?,?,?,?,?)";
     $stmt = $conn->prepare($query);
     if(!$stmt)
@@ -240,11 +241,11 @@ class user
   }
 
 }
-// $user = new user("ammar","ammar","magdy","iti","ammar@gmail.com","1993-12-7","male","student","2000");
-// $user->insert();
+$user = new user("shima","shima","shima","iti","shima@gmail.com","1993-12-7","female","student","2000");
+$user->insert();
 // $user = user::getById(3);
 // user::delete(user::getById(3));
-// echo "<pre>";
-// var_dump($user);
-// echo "</pre>";
+echo "<pre>";
+var_dump($user);
+echo "</pre>";
  ?>
