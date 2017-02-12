@@ -261,6 +261,7 @@ class user
 
 }
 $user = new user("shima","shima","shima","iti","shima@gmail.com","1993-12-7","female","student","2000");
+$user = new user("azhary","azhary","azhary","iti","azhary@gmail.com","1993-12-7","male","student","2000")
 $user->insert();
 // $user = user::getById(3);
 // user::delete(user::getById(3));

@@ -1,6 +1,7 @@
 <?php
  require 'config.php';
  $mysqli = new mysqli(DBHOST,DBUSER,DBPASS);
+//ttt
  // $mysqli->select_db(DBNAME);
  $res = $mysqli->query('create database if not exists '.DBNAME);
  if(!$res)
