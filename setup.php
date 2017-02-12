@@ -33,8 +33,8 @@
     gender varchar(6),
     job varchar(40),
     limitcredit DOUBLE,
-    is_admin Boolean,
-    is_deleted Boolean,
+    is_admin tinyint DEFAULT 0,
+    is_deleted tinyint DEFAULT 0,
     register_at DateTime DEFAULT CURRENT_TIMESTAMP,
     updated_at DateTime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
   )";
@@ -62,7 +62,6 @@
   $query = "create table if not exists product
   (
     product_id smallint unsigned auto_increment primary key,
-    user_id smallint unsigned,
     cat_id smallint unsigned,
     product_name varchar(100) not null,
     img_path varchar(200),
@@ -70,7 +69,6 @@
     price double,
     quantity int unsigned,
     updated_at DateTime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    foreign key (user_id) references user(user_id),
     foreign key (cat_id) references category(cat_id)
   )";
   $res = $mysqli->query($query);
@@ -102,7 +100,7 @@
     product_id smallint unsigned,
     buy_at DateTime DEFAULT CURRENT_TIMESTAMP,
     quantity tinyint unsigned,
-    paied Boolean,
+    paied tinyint DEFAULT 0,
     total_price double,
     foreign key (user_id) references user(user_id),
     foreign key (product_id) references product(product_id)
