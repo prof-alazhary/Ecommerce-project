@@ -1,5 +1,4 @@
 <?php
-require 'config.php';
 require 'autoload.php';
 class user
 {
@@ -47,7 +46,6 @@ class user
   {
     $this->$attr = $value;
   }
-
   //insert users
   function insert()
   {
@@ -79,7 +77,7 @@ class user
   //function get by id
   static function getById($id)
   {
-    $conn = user::connection();
+    $conn = connection::conn();
     $query = "select * from user where user_id = ?";
     $stmt = $conn->prepare($query);
     if(!$stmt)
@@ -87,7 +85,7 @@ class user
       echo("faild preparing query ".$conn->error)."<br>";
       return false;
     }
-    // $stmt = user::connection("select * from user where id = ?");
+    // $stmt = connection::conn("select * from user where id = ?");
     $res = $stmt->bind_param('i', $id);
     if(!$res)
     {
@@ -110,7 +108,7 @@ class user
   static function getByUsername($username)
   {
     //$success = true;
-    $conn = user::connection();
+    $conn = connection::conn();
     $query = "select * from user where user_name = ?";
     $stmt = $conn->prepare($query);
     if(!$stmt)
@@ -140,7 +138,7 @@ class user
   static function getAll()
   {
       //$success = true;
-      $conn = user::connection();
+      $conn = connection::conn();
       $query = "select * from user";
       $stmt = $conn->prepare($query);
       if(!$stmt)
@@ -167,7 +165,7 @@ class user
   //function updated
   static function update($user)
   {
-      $conn = user::connection();
+      $conn = connection::conn();
       if($conn)
       {
           $query = "update user set user_id= ? , user_name= ? , first_name= ?, last_name= ?, pass= ? , email= ? ,birth_of_date= ? , gender= ?, job= ?, limitcredit= ? where user_id= ?";
@@ -201,10 +199,48 @@ class user
           }
       }
   }//end function update
+  //function update_status
+  function update_status()
+  {
+    $conn = connection::conn();
+    if($conn)
+    {
+        $query = "update user set is_admin = 1 where user_id= ?";
+        $stmt = $conn->prepare($query);
+        if(!$stmt)
+        {
+          echo("faild preparing query ".$conn->error)."<br>";
+          return false;
+        }
+        $res = $stmt->bind_param('ii',$user['is_admin'], $user['oldid']);
+        if(!$res)
+        {
+          echo "binding Faild".$stmt->error;
+          return false;
+        }
+        // 3- execute statement
+        $stmt->execute();
+        if(!$stmt->execute())
+        {
+          echo "execution faild ".$stmt->error."<br>";
+          return false;
+        }
+        // 4- check for fail or success
+        if($stmt->affected_rows>0)
+        {
+          header('location:list.php');
+        }
+        else
+        {
+          echo "user not inserted";
+        }
+    }
+  }
+  //end function update_status
   //function delete
   static function delete($user)
   {
-      $conn = user::connection();
+      $conn = connection::conn();
       if($conn)
       {
           $query = "update user set is_deleted = 1   where user_id= ?";
@@ -224,7 +260,8 @@ class user
   }
 
 }
-$user = new user("azhary","azhary","azhary","iti","azhary@gmail.com","1993-12-7","male","student","2000");
+$user = new user("shima","shima","shima","iti","shima@gmail.com","1993-12-7","female","student","2000");
+$user = new user("azhary","azhary","azhary","iti","azhary@gmail.com","1993-12-7","male","student","2000")
 $user->insert();
 // $user = user::getById(3);
 // user::delete(user::getById(3));
