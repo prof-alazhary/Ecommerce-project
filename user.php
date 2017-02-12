@@ -1,5 +1,4 @@
 <?php
-require 'config.php';
 require 'autoload.php';
 class user
 {
@@ -47,24 +46,6 @@ class user
   {
     $this->$attr = $value;
   }
-  // static function connection()
-  // {
-  //   $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
-  //   if($conn->connect_errno)
-  //   {
-  //     echo("connection to DB faild<br>".$conn->connect_error);
-  //     return false;
-  //   }
-  //   return $conn;//end open connection
-  //   // $query = $query;
-  //   // $stmt = $conn->prepare($query);
-  //   // if(!$stmt)
-  //   // {
-  //   //   echo("faild preparing query ".$conn->error)."<br>";
-  //   //   return false;
-  //   // }
-  //   // return $stmt;
-  // }//end function connection
   //insert users
   function insert()
   {
@@ -218,6 +199,44 @@ class user
           }
       }
   }//end function update
+  //function update_status
+  function update_status()
+  {
+    $conn = connection::conn();
+    if($conn)
+    {
+        $query = "update user set is_admin = 1 where user_id= ?";
+        $stmt = $conn->prepare($query);
+        if(!$stmt)
+        {
+          echo("faild preparing query ".$conn->error)."<br>";
+          return false;
+        }
+        $res = $stmt->bind_param('ii',$user['is_admin'], $user['oldid']);
+        if(!$res)
+        {
+          echo "binding Faild".$stmt->error;
+          return false;
+        }
+        // 3- execute statement
+        $stmt->execute();
+        if(!$stmt->execute())
+        {
+          echo "execution faild ".$stmt->error."<br>";
+          return false;
+        }
+        // 4- check for fail or success
+        if($stmt->affected_rows>0)
+        {
+          header('location:list.php');
+        }
+        else
+        {
+          echo "user not inserted";
+        }
+    }
+  }
+  //end function update_status
   //function delete
   static function delete($user)
   {

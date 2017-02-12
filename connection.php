@@ -1,4 +1,5 @@
 <?php
+require 'config.php';
 class connection
 {
     static function conn()
