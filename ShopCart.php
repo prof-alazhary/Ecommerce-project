@@ -1,6 +1,7 @@
 <?php
-//try commit by github website ! 
-require 'config.php';
+//try commit by github website !
+//require 'config.php';
+require 'autoload.php';
 //testing commit 1
 
 //try from : azharyBranch1
@@ -33,14 +34,15 @@ class ShopCart{
         $this->buy_at=$buy_at;
         $this->quantity=$quantity;
         $this->paied=$paied;
+
     }
-    public function SelectShopCartByUserId($email)
+
+    public function SelectShopCartByUserId($user_id)
     {
-        global $db;
-        $query = "select user_id,product_id, product.product_name,product.price,quantity,buy_at,paied from shop_cart inner join product on product.product_id=shop_cart.product_id  where user_id=?";
-        $stmt = $db->prepare($query);
+        $conn=connection::conn();        $query = "select user_id,product_id, product.product_name,product.price,quantity,buy_at,paied from shop_cart inner join product on product.product_id=shop_cart.product_id  where user_id=?";
+        $stmt = $conn->prepare($query);
         if(!$stmt){
-          echo "<br>".$db->error."<br>";
+          echo "<br>".$conn->error."<br>";
           exit;
         }
         $stmt->bind_param('i',$user_id);
@@ -53,16 +55,16 @@ class ShopCart{
     }
     public function ShopCartInsert($user_id=null, $product_id=null,$quantity=null,$buy_at=null,$paied=null)
     {
-        global $db;
-        $query = "insert into shop_cart values(?,?,?,?,?)";
+        $conn=connection::conn();
+        $query = "insert into shop_cart (user_id,product_id,quantity) values(?,?,?)";
         //echo "<br><pre>".var_dump($query). "</pre>";
-        $stmt = $db->prepare($query);
+        $stmt = $conn->prepare($query);
         if(!$stmt){
-          echo "<br>".$db->error."<br>";
+          echo "<br>".$conn->error."<br>";
           exit;
         }
         //echo "<br><pre>".var_dump($stmt). "</pre>";
-        $stmt->bind_param('iiidb',$user_id, $product_id,$quantity,$buy_at,$paied);
+        $stmt->bind_param('iii',$user_id, $product_id,$quantity);
         //echo "<br><pre>".var_dump($stmt). "</pre>";
         $stmt->execute();
         //echo "<br><pre>".var_dump($stmt). "</pre>";
@@ -74,14 +76,13 @@ class ShopCart{
     }
     public function UpdateShopCart($user_id, $product_id,$quantity,$buy_at,$paied)
     {
-        global $db;
-        $query = "update shop_cart set quantity=?,buy_at=?,paied=? where user_id=? and product=? and paied=0";
-        $stmt = $db->prepare($query);
+        $conn=connection::conn();        $query = "update shop_cart set quantity=?,buy_at=?,paied=? where user_id=? and product=? and paied=0";
+        $stmt = $conn->prepare($query);
         if(!$stmt){
-          echo "<br>".$db->error."<br>";
+          echo "<br>".$conn->error."<br>";
           exit;
         }
-        $stmt->bind_param('idbii',$quantity,$buy_at,$paied,$user_id,$product_id);
+        $stmt->bind_param('isiii',$quantity,$buy_at,$paied,$user_id,$product_id);
         $stmt->execute();
         if($stmt->affected_rows>0){
       	echo "shop_cart updated successfully";
@@ -91,11 +92,10 @@ class ShopCart{
     }
     public function deleteShopCart($user_id,$product_id)
     {
-        global $db;
-        $query = "delete from shop_cart where user_id=? and product_id=? and paied=0";
-        $stmt = $db->prepare($query);
+        $conn=connection::conn();        $query = "delete from shop_cart where user_id=? and product_id=? and paied=0";
+        $stmt = $conn->prepare($query);
         if(!$stmt){
-          echo "<br>".$db->error."<br>";
+          echo "<br>".$conn->error."<br>";
           exit;
         }
         $stmt->bind_param('ii',$user_id,$product_id);
@@ -108,5 +108,7 @@ class ShopCart{
     }
 
 }
-
+//function ActionPaied(){....}
+$ss= new ShopCart();
+$ss->ShopCartInsert(1, 1,5,null,0);
  ?>
