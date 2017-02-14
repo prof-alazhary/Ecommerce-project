@@ -674,6 +674,5 @@ $(window).load(function() {
 <!-- slide -->
 <script src="js/bootstrap.min.js"></script>
 
-
 </body>
 </html>
