@@ -1,5 +1,5 @@
 <?php
-require 'autoload.php';
+require_once 'autoload.php';
 class user
 {
   private $user_id;
@@ -17,12 +17,9 @@ class user
   private $register_at;
   private $updated_at;
 
-
   //start of constructor
   function __construct($user_name,$first_name,$last_name,$pass,$email,$birth_of_date,$gender,$job,$limitcredit,$is_deleted = 0,$is_admin = 0)
   {
-    // $this->id = isset($this->id)?$this->id:$id;
-
     $this->user_name = isset($this->user_name)? $this->user_name:$user_name;
     $this->first_name = isset($this->first_name)? $this->first_name:$first_name;
     $this->last_name = isset($this->last_name)? $this->last_name:$last_name;
@@ -34,8 +31,6 @@ class user
     $this->limitcredit = isset($this->limitcredit)? $this->limitcredit:$limitcredit;
     $this->is_deleted = isset($this->is_deleted)? $this->is_deleted:$is_deleted;
     $this->is_admin = isset($this->is_admin)? $this->is_admin:$is_admin;
-    // $this->register_at = isset($this->register_at)? $this->register_at:$register_at;
-    // $this->updated_at = isset($this->updated_at)? $this->updated_at:$updated_at;
   }//end of constructor
   function __get($attr)
   {
@@ -163,19 +158,19 @@ class user
       return $users;
   }//end function getAll
   //function updated
-  static function update($user)
+  function update($user)
   {
       $conn = connection::conn();
       if($conn)
       {
-          $query = "update user set user_id= ? , user_name= ? , first_name= ?, last_name= ?, pass= ? , email= ? ,birth_of_date= ? , gender= ?, job= ?, limitcredit= ? where user_id= ?";
+          $query = "update user set user_name= ? , first_name= ?, last_name= ?, pass= ? , email= ? ,birth_of_date= ? , gender= ?, job= ?, limitcredit= ? where user_id= ?";
           $stmt = $conn->prepare($query);
           if(!$stmt)
           {
             echo("faild preparing query ".$conn->error)."<br>";
             return false;
           }
-          $res = $stmt->bind_param('issssssssii',$user['user_id'],$user['user_name'],$user['first_name'],$user['last_name'],$user['pass'],$user['email'],$user['birth_of_date'],$user['gender'],$user['job'],$user['limitcredit'], $user['oldid']);
+          $res = $stmt->bind_param('ssssssssii',$user['user_name'],$user['first_name'],$user['last_name'],$user['pass'],$user['email'],$user['birth_of_date'],$user['gender'],$user['job'],$user['limitcredit'], $user['user_id']);
           if(!$res)
           {
             echo "binding Faild".$stmt->error;
@@ -260,12 +255,11 @@ class user
   }
 
 }
-$user = new user("shima","shima","shima","iti","shima@gmail.com","1993-12-7","female","student","2000");
-$user = new user("azhary","azhary","azhary","iti","azhary@gmail.com","1993-12-7","male","student","2000")
-$user->insert();
-// $user = user::getById(3);
-// user::delete(user::getById(3));
-echo "<pre>";
-var_dump($user);
-echo "</pre>";
+// $user = new user("shima","shima","shima","iti","shima@gmail.com","1993-12-7","female","student","2000");
+// $user->insert();
+// // $user = user::getById(3);
+// // user::delete(user::getById(3));
+// echo "<pre>";
+// var_dump($user);
+// echo "</pre>";
  ?>
