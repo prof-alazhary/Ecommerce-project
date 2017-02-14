@@ -51,7 +51,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				counter++;
 				jQuery('#counter-cart').text(counter);
 				myAjax = jQuery.ajax({
-				  url: "ShopCart.php",
+				  url: "/DB Classes/ShopCart.php",
 				  method: 'POST',
 					data: { product_id:""+<?=$_GET['product_id']?>+"",
 									user_id: 1,
