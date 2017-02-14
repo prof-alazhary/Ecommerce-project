@@ -110,5 +110,5 @@ class ShopCart{
 }
 //function ActionPaied(){....}
 $ss= new ShopCart();
-$ss->ShopCartInsert(1, 1,5,null,0);
+$ss->ShopCartInsert(1, 1,1,null,0);
  ?>
