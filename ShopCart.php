@@ -1,7 +1,7 @@
 <?php
 //try commit by github website !
 //require 'config.php';
-require 'autoload.php';
+require_once 'autoload.php';
 //testing commit 1
 
 //try from : azharyBranch1
@@ -56,7 +56,9 @@ class ShopCart{
     public function ShopCartInsert($user_id=null, $product_id=null,$quantity=null,$buy_at=null,$paied=null)
     {
         $conn=connection::conn();
-        $query = "insert into shop_cart (user_id,product_id,quantity) values(?,?,?)";
+
+        //$query = "insert into shop_cart (user_id,product_id,quantity) values(?,?,?)";
+        $query = "call shop_cart_insert(?,?,?)";
         //echo "<br><pre>".var_dump($query). "</pre>";
         $stmt = $conn->prepare($query);
         if(!$stmt){
@@ -76,7 +78,8 @@ class ShopCart{
     }
     public function UpdateShopCart($user_id, $product_id,$quantity,$buy_at,$paied)
     {
-        $conn=connection::conn();        $query = "update shop_cart set quantity=?,buy_at=?,paied=? where user_id=? and product=? and paied=0";
+        $conn=connection::conn();
+        $query = "update shop_cart set quantity=?,buy_at=?,paied=? where user_id=? and product=? and paied=0";
         $stmt = $conn->prepare($query);
         if(!$stmt){
           echo "<br>".$conn->error."<br>";
@@ -92,7 +95,8 @@ class ShopCart{
     }
     public function deleteShopCart($user_id,$product_id)
     {
-        $conn=connection::conn();        $query = "delete from shop_cart where user_id=? and product_id=? and paied=0";
+        $conn=connection::conn();
+        $query = "delete from shop_cart where user_id=? and product_id=? and paied=0";
         $stmt = $conn->prepare($query);
         if(!$stmt){
           echo "<br>".$conn->error."<br>";
@@ -110,5 +114,5 @@ class ShopCart{
 }
 //function ActionPaied(){....}
 $ss= new ShopCart();
-$ss->ShopCartInsert(1, 1,5,null,0);
+$ss->ShopCartInsert($_POST['user_id'],$_POST['product_id'],$_POST['quantity'],null,0);
  ?>
