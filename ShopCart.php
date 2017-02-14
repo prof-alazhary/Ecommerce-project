@@ -115,5 +115,5 @@ class ShopCart{
 //function ActionPaied(){....}
 $ss= new ShopCart();
 $ss->ShopCartInsert($_POST['user_id'],$_POST['product_id'],$_POST['quantity'],null,0);
-
+//
  ?>
