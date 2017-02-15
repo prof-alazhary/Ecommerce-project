@@ -1,10 +1,6 @@
 <?php
-//try commit by github website !
-//require 'config.php';
 require_once 'autoload.php';
-//testing commit 1
 
-//try from : azharyBranch1
 class ShopCart{
 
     public $user_id;
@@ -39,7 +35,8 @@ class ShopCart{
 
     public function SelectShopCartByUserId($user_id)
     {
-        $conn=connection::conn();        $query = "select user_id,product_id, product.product_name,product.price,quantity,buy_at,paied from shop_cart inner join product on product.product_id=shop_cart.product_id  where user_id=?";
+        $conn=connection::conn();
+        $query = "select shop_cart.user_id,shop_cart.product_id, product.product_name,product.price, shop_cart.quantity,buy_at,paied from shop_cart INNER JOIN product on product.product_id=shop_cart.product_id where shop_cart.user_id=?";
         $stmt = $conn->prepare($query);
         if(!$stmt){
           echo "<br>".$conn->error."<br>";
@@ -53,7 +50,7 @@ class ShopCart{
         $shop_cart=new ShopCart($uUserId,$pProdId,$pName,$pPrice,$pQuantity,$pBuyAt ,$pPaied);
         return $shop_cart;
     }
-    public function ShopCartInsert($user_id=null, $product_id=null,$quantity=null,$buy_at=null,$paied=null)
+    public function ShopCartInsert($user_id=null, $product_id=null,$quantity=null)
     {
         $conn=connection::conn();
 
@@ -76,16 +73,16 @@ class ShopCart{
       		echo "shop_cart not inserted";
       	}
     }
-    public function UpdateShopCart($user_id, $product_id,$quantity,$buy_at,$paied)
+    public function UpdateShopCart($user_id, $product_id)
     {
         $conn=connection::conn();
-        $query = "update shop_cart set quantity=?,buy_at=?,paied=? where user_id=? and product=? and paied=0";
+        $query = "update shop_cart set buy_at=CURRENT_DATE,paied=1 where user_id=? and product_id=? and paied=0";
         $stmt = $conn->prepare($query);
         if(!$stmt){
           echo "<br>".$conn->error."<br>";
           exit;
         }
-        $stmt->bind_param('isiii',$quantity,$buy_at,$paied,$user_id,$product_id);
+        $stmt->bind_param('ii',$user_id,$product_id);
         $stmt->execute();
         if($stmt->affected_rows>0){
       	echo "shop_cart updated successfully";
@@ -112,8 +109,5 @@ class ShopCart{
     }
 
 }
-//function ActionPaied(){....}
-$ss= new ShopCart();
-$ss->ShopCartInsert($_POST['user_id'],$_POST['product_id'],$_POST['quantity'],null,0);
-//
+
  ?>
