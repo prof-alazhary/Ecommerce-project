@@ -1,9 +1,4 @@
-<!--A Design by W3layouts
-Author: W3layout
-Author URL: http://w3layouts.com
-License: Creative Commons Attribution 3.0 Unported
-License URL: http://creativecommons.org/licenses/by/3.0/
--->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,29 +40,30 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				})
 			});
 			counter=0;
-			jQuery('#add-to-cart').on('click',function(e) {
+			jQuery('#add-to-cart').on('click',function(e)
+			{
 				e.preventDefault();
 				jQuery('.simpleCart_empty').text('');
 				counter++;
 				jQuery('#counter-cart').text(counter);
-				myAjax = jQuery.ajax({
-				  url: "/Ecommerce-project/DBClasses/ShopCart.php",
-				  method: 'POST',
-					data: { product_id:""+<?=$_GET['product_id']?>+"",
-									user_id: 1,
-									quantity:1,
-					}
-				})
-					.done(function(data) {
+				myAjax = jQuery.ajax(
+					{
+					  url: "ActionOnShopCart.php",
+					  method: 'POST',
+						data: { product_id:""+<?=$_GET['product_id']?>+"",
+										user_id: 1,
+										quantity:1,
+										action : 'insert',
+									}
+					}).done(function(data) {
 				  //$(this).addClass( "done" );
 						alert(data);
-					})
-					.fail(function(data) {
+					}).fail(function(data) {
 					//$(this).addClass( "done" );
 						alert(data);
 					});
 
-			})
+			});
 		});
 		</script>
 <!---//End-rate---->
