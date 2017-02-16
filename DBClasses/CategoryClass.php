@@ -1,5 +1,5 @@
 <?php
-// require  'autoload.php';
+//require  'autoload.php';
 require_once 'config.php';
 
 class CategoryClass{
