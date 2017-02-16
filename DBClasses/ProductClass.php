@@ -6,7 +6,7 @@ class ProductClass{
 	private $user_id;
 	private $cat_id;
 	private $product_name;
-	private $img_patht ;
+	private $img_path ;
 	private $description;
 	private $price;
 	private $quantity;
@@ -19,7 +19,7 @@ class ProductClass{
 		$this->user_id =isset($this->user_id )?$this->user_id :$user_id ;
 		$this->cat_id=isset($this->cat_id)?$this->cat_id:$cat_id;
 		$this->product_name=isset($this->product_name)?$this->product_name:$product_name;
-		$this->img_path=isset($this->img_path)?$this->img_patht:$img_path;
+		$this->img_path=isset($this->img_path)?$this->img_path:$img_path;
 		$this->description=isset($this->description)?$this->description:$description;
 		$this->price=isset($this->price)?$this->price:$price;
 		$this->quantity=isset($this->quantity)?$this->quantity:$quantity;
