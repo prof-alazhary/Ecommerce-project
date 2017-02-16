@@ -1,25 +1,24 @@
 <?php
-require 'config.php';
+require_once 'config.php';
 
 class ProductClass{
 	private $product_id;
 	private $user_id;
 	private $cat_id;
 	private $product_name;
-	private $img_path;
+	private $img_patht ;
 	private $description;
 	private $price;
 	private $quantity;
-	
+
 
 	//Start of Constructor
 	//user_id,product_id,cat_id,product_name,img_path,description,price,quantity,updated_at
-	function __construct($product_id,$user_id ,$cat_id,$product_name,$img_path,$description,$price,$quantity
-		){
+	function __construct($product_id,$user_id ,$cat_id,$product_name,$img_path=0,$description,$price,$quantity=0){
 		$this->product_id =isset($this->product_id )?$this->product_id :$product_id ;
 		$this->user_id =isset($this->user_id )?$this->user_id :$user_id ;
 		$this->cat_id=isset($this->cat_id)?$this->cat_id:$cat_id;
-		$this->product_name=isset($this->product_name)?$this->product_name:$product_name;	
+		$this->product_name=isset($this->product_name)?$this->product_name:$product_name;
 		$this->img_path=isset($this->img_path)?$this->img_patht:$img_path;
 		$this->description=isset($this->description)?$this->description:$description;
 		$this->price=isset($this->price)?$this->price:$price;
@@ -46,7 +45,7 @@ class ProductClass{
 		if($conn->connect_errno){
 			echo "error connection to DB ".$conn->connect_error."<br>";
 			$success = false;
-		} //End of open connection  
+		} //End of open connection
 
 		$query = "insert into product (product_id,user_id,cat_id,product_name,img_path,description,price,quantity) values(?,?,?,?,?,?,?,?)";
 		$statement = $conn->prepare($query);
@@ -204,7 +203,7 @@ class ProductClass{
 		$products = [];
 		$params = array('user_id','product_id','cat_id','product_name','img_path','description','price,quantity');
 		while($product = $result->fetch_object('ProductClass',$params)){
-			$products[] = $product; 
+			$products[] = $product;
 		}
 
 		$statement->close();
@@ -295,11 +294,11 @@ class ProductClass{
 // $product = ProductClass::getAllProducts();
 // var_dump($product)
 
-$product = ProductClass::getById(2);
-$product->delete();
-if($product->delete()){
-	echo $product->name."deleted Successfully";
- }
+// $product = ProductClass::getById(2);
+// $product->delete();
+// if($product->delete()){
+// 	echo $product->name."deleted Successfully";
+// }
 
 // $product = ProductClass::getById(1);
 // $product->product_name = 'ggg';
