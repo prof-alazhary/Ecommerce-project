@@ -10,8 +10,6 @@ else
 {
     header('Location: ../user/login.php?error=your are not logged in');
 }
-require_once '../DBClasses/CategoryClass.php';
-require_once '../DBClasses/ProductClass.php';
 $categories = CategoryClass::getAllCategories();
 $products = ProductClass::getAllProducts();
  ?>
@@ -144,7 +142,7 @@ $products = ProductClass::getAllProducts();
  										foreach ($products as $product) {
  												if ($cat->cat_id == $product->cat_id) {
  												?>
- 											<li><a href="../product.php"><?= $product->product_name ?></a></li>
+ 											<li><a href="../product.php?"><?= $product->product_name ?></a></li>
  											<?php
  											}
  										}
@@ -255,7 +253,7 @@ $products = ProductClass::getAllProducts();
     <div class="col-xs-offset-3 col-xs-12">
     	<div class="row-fluid">
             <div class="col-md-3" >
-    		          <img style="border-radius:20px;" src="https://secure.gravatar.com/avatar/de9b11d0f9c0569ba917393ed5e5b3ab?s=140&r=g&d=mm" >
+    		          <img style="border-radius:20px;" src="" >
             </div>
             <div class="col-md-6">
                 <h4 style="font-size:30px"><?=$user->first_name." ".$user->last_name?></h4>
@@ -268,7 +266,7 @@ $products = ProductClass::getAllProducts();
           <div class="row-fluid">
           <div class="form-group" >
             <div class="col-xs-offset-2 col-xs-8" style="margin-top:5%">
-              <a href='profile_update.php'><button>UPDATE</button></a>
+              <a href="profile_update.php"><button>UPDATE</button></a>
             </div>
             <!-- //var_dump($user);//$user->update($_POST) -->
           </div>
