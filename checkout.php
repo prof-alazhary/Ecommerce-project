@@ -71,7 +71,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 		<div class="col-sm-5 col-md-offset-2  header-login">
 					<ul >
-						<li><i class="glyphicon glyphicon-user" style="color:#c0c0c0"></i><a href="#"><?=$user->user_name?></a></li>
+						<li><i class="glyphicon glyphicon-user" style="color:#c0c0c0"></i><a href="user/userprofile.php"><?=$user->user_name?></a></li>
 						<li><a href="checkout.php">Checkout</a></li>
 					</ul>
 				</div>
