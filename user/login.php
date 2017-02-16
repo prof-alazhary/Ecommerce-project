@@ -158,7 +158,7 @@
   						</div>
 
   						<div class="col1 col5">
-  						<img src="<?= $category->img_path ?>" class="img-responsive" alt="">
+  						<img src="../<?= $category->img_path ?>" class="img-responsive" alt="">
   						</div>
   						<div class="clearfix"></div>
   					</div>
@@ -254,7 +254,7 @@
                 <input type="submit" id="login" name="login" class="login loginmodal-submit" value="Login">
               </form>
               <div class="login-help">
-               New here? <a href="signup.php"> Create an account</a> <br><a href="#" id = "forgetpass">Forgot Password</a>
+               New here? <a href="register.php"> Create an account</a> <br><a href="#" id = "forgetpass">Forgot Password</a>
               </div>
           </div>
         </div>
