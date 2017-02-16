@@ -1,5 +1,5 @@
 <?php
-//require  'autoload.php';
+// require  'autoload.php';
 require_once 'config.php';
 
 class CategoryClass{
@@ -279,13 +279,13 @@ class CategoryClass{
 			$success = false;
 		} //End of open connection
 
-		$query = "update category set cat_name = ?,img_path=?,img_cat=?,description=?,parent=? where cat_id=?";
+		$query = "update category set cat_name = ?,img_path=?,img_cat=?,description=? where cat_id=?";
 		$statement = $conn->prepare($query);
 		if(!$statement){
 			echo "error preparing query : ".$conn->error."<br>";
 			$success = false;
 		}
-		$result = $statement->bind_param("sssisi",$this->cat_name,$this->img_path,$this->img_cat,$this->cat_id,$this->description,$this->parent);
+		$result = $statement->bind_param("ssssi",$this->cat_name,$this->img_path,$this->img_cat,$this->description,$this->cat_id);
 		if(!$result){
 			echo "binding failed : ".$statement->error;
 			$success = false;
@@ -343,6 +343,7 @@ class CategoryClass{
 // $category->img_path="images/pc.jpg";
 // $category->img_cat="images/pc1.jpg";
 // $category->description = "skjdadhkahfkj";
+// $category->parent=1;
 // if($category->insert()){
 // 	echo $category->cat_name."Inserted Succssefully";
 // }
@@ -367,8 +368,8 @@ class CategoryClass{
 // 	echo $category->cat_name."deleted Successfully";
 //  }
 
-// $category = CategoryClass::getById(6);
-// $category->cat_id = '21';
+// $category = CategoryClass::getById('3');
+// $category->description = 'new products available';
 // if($category->update()){
 // 	echo "Succeed";
 // }
