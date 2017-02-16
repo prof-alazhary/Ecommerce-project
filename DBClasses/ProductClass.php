@@ -5,11 +5,7 @@ class ProductClass{
 	private $product_id;
 	private $cat_id;
 	private $product_name;
-
 	private $img_path ;
-
-	private $img_path;
-
 	private $description;
 	private $price;
 	private $quantity;
