@@ -1,3 +1,20 @@
+<?php
+require_once '../DBClasses/autoload.php';
+session_start();
+if(isset($_SESSION['loggeduser']))
+{
+    $user = $_SESSION['loggeduser'];
+    // var_dump($user);
+}
+else
+{
+    header('Location: ../user/login.php?error=your are not logged in');
+}
+require_once '../DBClasses/CategoryClass.php';
+require_once '../DBClasses/ProductClass.php';
+$categories = CategoryClass::getAllCategories();
+$products = ProductClass::getAllProducts();
+ ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,8 +73,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 		<div class="col-sm-5 col-md-offset-2  header-login">
 					<ul >
-						<li><a href="login.php">Login</a></li>
-						<li><a href="register.php">Register</a></li>
+						<li><i class="glyphicon glyphicon-user" style="color:#c0c0c0"></i><a href="#"><?=$user->user_name?></a></li>
 						<li><a href="checkout.php">Checkout</a></li>
 					</ul>
 				</div>

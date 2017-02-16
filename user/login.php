@@ -71,7 +71,7 @@
   					<ul >
   						<li><a href="login.php">Login</a></li>
   						<li><a href="register.php">Register</a></li>
-  						<li><a href="checkout.html">Checkout</a></li>
+  						<li><a href="../checkout.php">Checkout</a></li>
   					</ul>
   				</div>
 
@@ -168,9 +168,9 @@
   						}
   						?>
 
-  			<li><a class="color4" href="404.html">About</a></li>
-  						<li><a class="color5" href="typo.html">Short Codes</a></li>
-  						<li ><a class="color6" href="contact.html">Contact</a></li>
+  			<li><a class="color4" href="../404.php">About</a></li>
+  						<li><a class="color5" href="../typo.php">Short Codes</a></li>
+  						<li ><a class="color6" href="../contact.php">Contact</a></li>
 
           </ul>
        </div><!-- /.navbar-collapse -->
@@ -180,13 +180,13 @@
   			<div class="col-sm-2 search-right">
   				<ul class="heart">
   				<li>
-  				<a href="wishlist.html" >
+  				<a href="../wishlist.php" >
   				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
   				</a></li>
   				<li><a class="play-icon popup-with-zoom-anim" href="#small-dialog"><i class="glyphicon glyphicon-search"> </i></a></li>
   					</ul>
   					<div class="cart box_1">
-  						<a href="checkout.html">
+  						<a href="../checkout.php">
   						<h3> <div class="total">
   							<span class="simpleCart_total"></span></div>
   							<img src="../images/cart.png" alt=""/></h3>
@@ -269,22 +269,22 @@
 	<div class="footer-middle">
 				<div class="container">
 					<div class="col-md-3 footer-middle-in">
-						<a href="index.html"><img src="../images/log.png" alt=""></a>
+						<a href="../index.php"><img src="../images/log.png" alt=""></a>
 						<p>Suspendisse sed accumsan risus. Curabitur rhoncus, elit vel tincidunt elementum, nunc urna tristique nisi, in interdum libero magna tristique ante. adipiscing varius. Vestibulum dolor lorem.</p>
 					</div>
 
 					<div class="col-md-3 footer-middle-in">
 						<h6>Information</h6>
 						<ul class=" in">
-							<li><a href="404.html">About</a></li>
-							<li><a href="contact.html">Contact Us</a></li>
+							<li><a href="../404.php">About</a></li>
+							<li><a href="../contact.php">Contact Us</a></li>
 							<li><a href="#">Returns</a></li>
-							<li><a href="contact.html">Site Map</a></li>
+							<li><a href="../contact.php">Site Map</a></li>
 						</ul>
 						<ul class="in in1">
 							<li><a href="#">Order History</a></li>
-							<li><a href="wishlist.html">Wish List</a></li>
-							<li><a href="login.html">Login</a></li>
+							<li><a href="../wishlist.php">Wish List</a></li>
+							<li><a href="login.php">Login</a></li>
 						</ul>
 						<div class="clearfix"></div>
 					</div>
