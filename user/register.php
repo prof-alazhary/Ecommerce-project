@@ -61,7 +61,7 @@ $products = ProductClass::getAllProducts();
  <div class="container">
  		<div class="head">
  			<div class=" logo">
- 				<a href="index.php"><img src="../images/logo.png" alt=""></a>
+ 				<a href="../index.php"><img src="../images/logo.png" alt=""></a>
  			</div>
  		</div>
  	</div>
@@ -71,7 +71,7 @@ $products = ProductClass::getAllProducts();
  					<ul >
  						<li><a href="login.php">Login</a></li>
  						<li><a href="register.php">Register</a></li>
- 						<li><a href="checkout.html">Checkout</a></li>
+ 						<li><a href="../checkout.html">Checkout</a></li>
  					</ul>
  				</div>
 
@@ -107,7 +107,7 @@ $products = ProductClass::getAllProducts();
     <!-- Collect the nav links, forms, and other content for toggling -->
      <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
          <ul class="nav navbar-nav nav_1">
-             <li><a class="color" href="index.php">Home</a></li>
+             <li><a class="color" href="../index.php">Home</a></li>
 
  						<?php
  					foreach ($categories as $category) {
@@ -134,7 +134,7 @@ $products = ProductClass::getAllProducts();
  										foreach ($products as $product) {
  												if ($cat->cat_id == $product->cat_id) {
  												?>
- 											<li><a href="product.php"><?= $product->product_name ?></a></li>
+ 											<li><a href="../product.php"><?= $product->product_name ?></a></li>
  											<?php
  											}
  										}
@@ -148,7 +148,7 @@ $products = ProductClass::getAllProducts();
  									if($category->cat_id == $product->cat_id){
  										?>
  										<ul>
- 											<li><a href="product.php"><?= $product->product_name ?></a></li>
+ 											<li><a href="../product.php"><?= $product->product_name ?></a></li>
  										</ul>
  										<?php
  									}

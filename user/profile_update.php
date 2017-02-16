@@ -77,7 +77,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="container">
    <div class="head">
      <div class=" logo">
-       <a href="index.php"><img src="../images/logo.png" alt=""></a>
+       <a href="../index.php"><img src="../images/logo.png" alt=""></a>
      </div>
    </div>
  </div>
@@ -122,7 +122,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
         <ul class="nav navbar-nav nav_1">
-            <li><a class="color" href="index.php">Home</a></li>
+            <li><a class="color" href="../index.php">Home</a></li>
 
            <?php
            foreach ($categories as $category) {
@@ -149,7 +149,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                    foreach ($products as $product) {
                        if ($cat->cat_id == $product->cat_id) {
                        ?>
-                     <li><a href="product.php"><?= $product->product_name ?></a></li>
+                     <li><a href="../product.php"><?= $product->product_name ?></a></li>
                      <?php
                      }
                    }
@@ -163,7 +163,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                  if($category->cat_id == $product->cat_id){
                    ?>
                    <ul>
-                     <li><a href="product.php"><?= $product->product_name ?></a></li>
+                     <li><a href="../product.php"><?= $product->product_name ?></a></li>
                    </ul>
                    <?php
                  }
@@ -252,7 +252,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
  <div class="container">
    <h1><?=$user->user_name?></h1>
    <em></em>
-   <h2><a href="index.php">Home</a><label>/</label><?="Welcom ".$user->user_name?></h2>
+   <h2><a href="../index.php">Home</a><label>/</label><?="Welcom ".$user->user_name?></h2>
  </div>
 </div>
   <div class="container">
