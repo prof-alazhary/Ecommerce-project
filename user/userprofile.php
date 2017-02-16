@@ -168,7 +168,7 @@ $products = ProductClass::getAllProducts();
  						</div>
 
  						<div class="col1 col5">
- 						<img src="<?= $category->img_path ?>" class="img-responsive" alt="">
+ 						<img src="../<?= $category->img_path ?>" class="img-responsive" alt="">
  						</div>
  						<div class="clearfix"></div>
  					</div>
