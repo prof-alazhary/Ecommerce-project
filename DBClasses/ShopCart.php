@@ -33,47 +33,40 @@ class ShopCart{
 
     }
 
-    public function SelectShopCartByUserId($user_id)
+    public function SelectShopCartByUserId($user_id,$paied)
     {
         $conn=connection::conn();
-        $query = "select shop_cart.user_id,shop_cart.product_id, product.product_name,product.price, shop_cart.quantity,buy_at,paied from shop_cart INNER JOIN product on product.product_id=shop_cart.product_id where shop_cart.user_id=?";
+        $query = "select shop_cart.user_id,shop_cart.product_id, product.product_name,product.price, shop_cart.quantity,buy_at,paied from shop_cart INNER JOIN product on product.product_id=shop_cart.product_id where shop_cart.user_id=? and shop_cart.paied=?";
         $stmt = $conn->prepare($query);
         if(!$stmt){
           echo "<br>".$conn->error."<br>";
           exit;
         }
-        $stmt->bind_param('i',$user_id);
+        $stmt->bind_param('ii',$user_id,$paied);
         $stmt->execute();
         $stmt->store_result();
         $stmt->bind_result($uUserId,$pProdId,$pName,$pPrice,$pQuantity,$pBuyAt ,$pPaied);
+        $arr[]=null;
+        $i=0;
         while ($stmt->fetch()) {
-          $shop_cart=new ShopCart($uUserId,$pProdId,$pName,$pPrice,$pQuantity,$pBuyAt ,$pPaied);
-          var_dump($shop_cart);
-          echo "---------------------------------------------------------------------------------------------------------------------------------";
+          $arr[$i]=new ShopCart($uUserId,$pProdId,$pName,$pPrice,$pQuantity,$pBuyAt ,$pPaied);
+          $i++;
         }
-
-
         $stmt->close();
         $conn->close();
-        return $shop_cart;
+        return $arr;
     }
     public function ShopCartInsert($user_id=null, $product_id=null,$quantity=null)
     {
         $conn=connection::conn();
-
-        //$query = "insert into shop_cart (user_id,product_id,quantity) values(?,?,?)";
         $query = "call shop_cart_insert(?,?,?)";
-        //echo "<br><pre>".var_dump($query). "</pre>";
         $stmt = $conn->prepare($query);
         if(!$stmt){
           echo "<br>".$conn->error."<br>";
           exit;
         }
-        //echo "<br><pre>".var_dump($stmt). "</pre>";
         $stmt->bind_param('iii',$user_id, $product_id,$quantity);
-        //echo "<br><pre>".var_dump($stmt). "</pre>";
         $stmt->execute();
-        //echo "<br><pre>".var_dump($stmt). "</pre>";
         if($stmt->affected_rows>0){
       	echo "shop_cart inserted successfully";
       	}else{
@@ -122,8 +115,5 @@ class ShopCart{
     }
 
 }
-echo "----------------------------------------------------------------------";
-$user1 = new ShopCart();
-$result=$user1->SelectShopCartByUserId(4);
-var_dump($result);
+
  ?>
