@@ -46,8 +46,15 @@ class ShopCart{
         $stmt->execute();
         $stmt->store_result();
         $stmt->bind_result($uUserId,$pProdId,$pName,$pPrice,$pQuantity,$pBuyAt ,$pPaied);
-        $stmt->fetch();
-        $shop_cart=new ShopCart($uUserId,$pProdId,$pName,$pPrice,$pQuantity,$pBuyAt ,$pPaied);
+        while ($stmt->fetch()) {
+          $shop_cart=new ShopCart($uUserId,$pProdId,$pName,$pPrice,$pQuantity,$pBuyAt ,$pPaied);
+          var_dump($shop_cart);
+          echo "---------------------------------------------------------------------------------------------------------------------------------";
+        }
+
+
+        $stmt->close();
+        $conn->close();
         return $shop_cart;
     }
     public function ShopCartInsert($user_id=null, $product_id=null,$quantity=null)
@@ -72,6 +79,8 @@ class ShopCart{
       	}else{
       		echo "shop_cart not inserted";
       	}
+        $stmt->close();
+        $conn->close();
     }
     public function UpdateShopCart($user_id, $product_id)
     {
@@ -89,6 +98,8 @@ class ShopCart{
       	}else{
       		echo "shop_cart not updated";
       	}
+        $stmt->close();
+        $conn->close();
     }
     public function deleteShopCart($user_id,$product_id)
     {
@@ -106,8 +117,13 @@ class ShopCart{
         }else{
           echo "shop_cart Delete Not Success!";
         }
+        $stmt->close();
+        $conn->close();
     }
 
 }
-
+echo "----------------------------------------------------------------------";
+$user1 = new ShopCart();
+$result=$user1->SelectShopCartByUserId(4);
+var_dump($result);
  ?>

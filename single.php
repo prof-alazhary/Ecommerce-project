@@ -1,8 +1,22 @@
+<?php
+require_once 'DBClasses/autoload.php';
+session_start();
+if(isset($_SESSION['loggeduser']))
+{
+	$user = $_SESSION['loggeduser'];
+}
+     $categories = CategoryClass::getAllCategories();
+     $products = ProductClass::getAllProducts();
+
+     $product_id = $_GET['product_id'];
+     $product = ProductClass::getById($product_id);
+?>
+
 
 <!DOCTYPE html>
 <html>
 <head>
-<title>Shopin A Ecommerce Category Flat Bootstrap Responsive Website Template | Single :: w3layouts</title>
+<title>Shopin A Ecommerce Category Flat Bootstrap Responsive Website Template | Products :: w3layouts</title>
 <link href="css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 <!-- Custom Theme files -->
 <!--theme-style-->
@@ -37,7 +51,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					starbox.next().text(' '+val);
 					return val;
 					}
-				});
+				})
 			});
 			counter=0;
 			jQuery('#add-to-cart').on('click',function(e)
@@ -48,15 +62,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				jQuery('#counter-cart').text(counter);
 				myAjax = jQuery.ajax(
 					{
-					  url: "ActionOnShopCart.php",
-					  method: 'POST',
+						url: "ActionOnShopCart.php",
+						method: 'POST',
 						data: { product_id:""+<?=$_GET['product_id']?>+"",
-										user_id: 1,
+										user_id: ""+<?=$user->user_id ?>+"",
 										quantity:1,
 										action : 'insert',
 									}
 					}).done(function(data) {
-				  //$(this).addClass( "done" );
+					//$(this).addClass( "done" );
 						alert(data);
 					}).fail(function(data) {
 					//$(this).addClass( "done" );
@@ -68,6 +82,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		</script>
 <!---//End-rate---->
 <link href="css/form.css" rel="stylesheet" type="text/css" media="all" />
+
 </head>
 <body>
 <!--header-->
@@ -83,8 +98,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="container">
 		<div class="col-sm-5 col-md-offset-2  header-login">
 					<ul >
-						<li><a href="login.php">Login</a></li>
-						<li><a href="register.php">Register</a></li>
+						<?php
+            if(isset($_SESSION['loggeduser']))
+            {
+              //$user = $_SESSION['loggeduser'];
+              echo "<li><i class='glyphicon glyphicon-user' style='color:#c0c0c0'></i><a href='user/userprofile.php'>$user->user_name</a></li>";
+            }
+            else {
+              echo "<li><a href='user/login.php'>Login</a></li>
+  						<li><a href='user/egister.php'>Register</a></li>";
+            }
+             ?>
 						<li><a href="checkout.php">Checkout</a></li>
 					</ul>
 				</div>
@@ -123,137 +147,66 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
    <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
         <ul class="nav navbar-nav nav_1">
-            <li><a class="color" href="index.php">Home</a></li>
-          <li class="dropdown mega-dropdown active">
-			    <a class="color1" href="#" class="dropdown-toggle" data-toggle="dropdown">Women<span class="caret"></span></a>
+
+            <?php
+        	foreach ($categories as $category) {
+        		?>
+            <li class="dropdown mega-dropdown active">
+            	<?php
+            	if($category->parent===null){
+            	?>
+			    <a class="color1" href="#" class="dropdown-toggle" data-toggle="dropdown"><?= $category->cat_name ?><span class="caret"></span></a>
+			    <?php
+			    }
+			    ?>
 				<div class="dropdown-menu ">
                     <div class="menu-top">
 						<div class="col1">
 							<div class="h_nav">
-								<h4>Submenu1</h4>
+								<?php
+								foreach ($categories as $cat) {
+									if ($category->cat_id == $cat->parent) {
+									?>
+								<h4><?= $cat->cat_name ?></h4>
 									<ul>
-										<li><a href="product.php">Accessories</a></li>
-										<li><a href="product.php">Bags</a></li>
-										<li><a href="product.php">Caps & Hats</a></li>
-										<li><a href="product.php">Hoodies & Sweatshirts</a></li>
-
+										<?php
+										foreach ($products as $product) {
+    										if ($cat->cat_id == $product->cat_id) {
+    										?>
+											<li><a href="single.php?product_id=<?= $product->product_id ?>"><?= $product->product_name ?></a></li>
+											<?php
+											}
+										}
+										?>
 									</ul>
+									<h4>Other Products</h4>
+									<?php
+									}
+								}
+								foreach ($products as $product) {
+									if($category->cat_id == $product->cat_id){
+										?>
+										<ul>
+											<li><a href="single.php?product_id=<?= $product->product_id ?>"><?= $product->product_name ?></a></li>
+										</ul>
+										<?php
+									}
+								}
+								?>
 							</div>
 						</div>
-						<div class="col1">
-							<div class="h_nav">
-								<h4>Submenu2</h4>
-								<ul>
-										<li><a href="product.php">Jackets & Coats</a></li>
-										<li><a href="product.php">Jeans</a></li>
-										<li><a href="product.php">Jewellery</a></li>
-										<li><a href="product.php">Jumpers & Cardigans</a></li>
-										<li><a href="product.php">Leather Jackets</a></li>
-										<li><a href="product.php">Long Sleeve T-Shirts</a></li>
-									</ul>
-							</div>
-						</div>
-						<div class="col1">
-							<div class="h_nav">
-								<h4>Submenu3</h4>
-									<ul>
-										<li><a href="product.php">Shirts</a></li>
-										<li><a href="product.php">Shoes, Boots & Trainers</a></li>
-										<li><a href="product.php">Sunglasses</a></li>
-										<li><a href="product.php">Sweatpants</a></li>
-										<li><a href="product.php">Swimwear</a></li>
-										<li><a href="product.php">Trousers & Chinos</a></li>
 
-									</ul>
-
-							</div>
-						</div>
-						<div class="col1">
-							<div class="h_nav">
-								<h4>Submenu4</h4>
-								<ul>
-									<li><a href="product.php">T-Shirts</a></li>
-									<li><a href="product.php">Underwear & Socks</a></li>
-									<li><a href="product.php">Vests</a></li>
-									<li><a href="product.php">Jackets & Coats</a></li>
-									<li><a href="product.php">Jeans</a></li>
-									<li><a href="product.php">Jewellery</a></li>
-								</ul>
-							</div>
-						</div>
 						<div class="col1 col5">
-						<img src="images/me.png" class="img-responsive" alt="">
+						<img src="<?= $category->img_path ?>" class="img-responsive" alt="">
 						</div>
 						<div class="clearfix"></div>
 					</div>
 				</div>
 			</li>
-			<li class="dropdown mega-dropdown active">
-			    <a class="color2" href="#" class="dropdown-toggle" data-toggle="dropdown">Men<span class="caret"></span></a>
-				<div class="dropdown-menu mega-dropdown-menu">
-                    <div class="menu-top">
-						<div class="col1">
-							<div class="h_nav">
-								<h4>Submenu1</h4>
-									<ul>
-										<li><a href="product.php">Accessories</a></li>
-										<li><a href="product.php">Bags</a></li>
-										<li><a href="product.php">Caps & Hats</a></li>
-										<li><a href="product.php">Hoodies & Sweatshirts</a></li>
+			<?php
+            }
+            ?>
 
-									</ul>
-							</div>
-						</div>
-						<div class="col1">
-							<div class="h_nav">
-								<h4>Submenu2</h4>
-								<ul>
-										<li><a href="product.php">Jackets & Coats</a></li>
-										<li><a href="product.php">Jeans</a></li>
-										<li><a href="product.php">Jewellery</a></li>
-										<li><a href="product.php">Jumpers & Cardigans</a></li>
-										<li><a href="product.php">Leather Jackets</a></li>
-										<li><a href="product.php">Long Sleeve T-Shirts</a></li>
-									</ul>
-							</div>
-						</div>
-						<div class="col1">
-							<div class="h_nav">
-								<h4>Submenu3</h4>
-
-<ul>
-										<li><a href="product.php">Shirts</a></li>
-										<li><a href="product.php">Shoes, Boots & Trainers</a></li>
-										<li><a href="product.php">Sunglasses</a></li>
-										<li><a href="product.php">Sweatpants</a></li>
-										<li><a href="product.php">Swimwear</a></li>
-										<li><a href="product.php">Trousers & Chinos</a></li>
-
-									</ul>
-
-							</div>
-						</div>
-						<div class="col1">
-							<div class="h_nav">
-								<h4>Submenu4</h4>
-								<ul>
-									<li><a href="product.php">T-Shirts</a></li>
-									<li><a href="product.php">Underwear & Socks</a></li>
-									<li><a href="product.php">Vests</a></li>
-									<li><a href="product.php">Jackets & Coats</a></li>
-									<li><a href="product.php">Jeans</a></li>
-									<li><a href="product.php">Jewellery</a></li>
-								</ul>
-							</div>
-						</div>
-						<div class="col1 col5">
-						<img src="images/me1.png" class="img-responsive" alt="">
-						</div>
-						<div class="clearfix"></div>
-					</div>
-				</div>
-			</li>
-			<li><a class="color3" href="product.php">Sale</a></li>
 			<li><a class="color4" href="404.php">About</a></li>
             <li><a class="color5" href="typo.php">Short Codes</a></li>
             <li ><a class="color6" href="contact.php">Contact</a></li>
@@ -322,9 +275,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!--banner-->
 <div class="banner-top">
 	<div class="container">
-		<h1>Single</h1>
+		<h1>Products</h1>
 		<em></em>
-		<h2><a href="index.php">Home</a><label>/</label>Single</h2>
+		<h2><a href="index.php">Home</a><label>/</label>Products</h2>
 	</div>
 </div>
 <div class="single">
@@ -610,7 +563,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						<ul class="in in1">
 							<li><a href="#">Order History</a></li>
 							<li><a href="wishlist.php">Wish List</a></li>
-							<li><a href="login.php">Login</a></li>
+							<li><a href="user/login.php">Login</a></li>
 						</ul>
 						<div class="clearfix"></div>
 					</div>
@@ -669,6 +622,7 @@ $(window).load(function() {
 	<script src="js/simpleCart.min.js"> </script>
 <!-- slide -->
 <script src="js/bootstrap.min.js"></script>
+
 
 </body>
 </html>
