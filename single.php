@@ -73,7 +73,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						data: { product_id:""+<?=$product_id?>+"",
 										user_id: ""+<?=$user->user_id ?>+"",
 										quantity:1,
-										action : 'insert',
+										action : 'insert'
 									}
 					}).done(function(data) {
 					//$(this).addClass( "done" );
@@ -232,9 +232,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="cart box_1">
 						<a href="checkout.php">
 						<h3> <div class="total">
-							<span class="simpleCart_total"></span></div>
+							<span class="simpleCart_total"></span>
+							</div>
 							<img src="images/cart.png" alt=""/></h3>
-							<div class="counter-product" style="float: right;">  <lable id="counter-cart">0</lable>  </div>
+							<div class="counter-product" style="float: right;">  <span id="counter-cart" class="badge">0</span> </div>
 						</a>
 						<p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
 

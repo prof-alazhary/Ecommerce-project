@@ -267,10 +267,42 @@ $products = ProductClass::getAllProducts();
           <div class="form-group" >
             <div class="col-xs-offset-2 col-xs-8" style="margin-top:5%">
               <a href="profile_update.php"><button>UPDATE</button></a>
+              <button>History</button></a>
             </div>
-            <!-- //var_dump($user);//$user->update($_POST) -->
+
           </div>
-    </div>
+      </div>
+      <table id="mytable" class="table-heading simpleCart_shelfItem">
+      <tbody>
+		  <tr>
+			<th>Item</th>
+			<th>Price</th>
+			<th >Quantity </th>
+			<th>Total Price</th>
+		  </tr>
+        <?php
+            $shop_cart=new ShopCart();
+              $arr=$shop_cart->SelectShopCartByUserId($user->user_id,0);
+            for ($i=0; $i<count($arr); $i++)
+            {
+              echo "<tr class='cart-header'>
+              <td class='ring-in'><a href='single.php' class='at-in'><img src='images/ch.jpg' class='img-responsive' alt=''></a>
+          			<div class='sed'>
+          				<h5><a href='single.php?".($arr[$i])->product_id."'>".($arr[$i])->product_name."</a></h5>
+          				<p>(At vero eos et accusamus et iusto odio dignissimos ducimus ) </p>
+          			</div>
+          			<div class='clearfix'> </div>
+          			<div class='close1'> </div></td>
+                <td>".($arr[$i])->product_price."</td>
+                <td>".($arr[$i])->quantity."</td>
+                <td>".(($arr[$i])->quantity)*(($arr[$i])->product_price)."</td>
+                                                      </tr>";
+              //<td class='add-check'><a class='item_add hvr-skew-backward' href='#'>Remove</a></td>
+            }
+
+         ?>
+       </tbody>
+	</table>
     </div>
   </div>
   <div style="margin-bottom:15%"></div>
