@@ -1,5 +1,5 @@
 <?php
-require 'config.php';
+require_once 'autoload.php';
 class user
 {
   private $user_id;
@@ -17,12 +17,9 @@ class user
   private $register_at;
   private $updated_at;
 
-
   //start of constructor
   function __construct($user_name,$first_name,$last_name,$pass,$email,$birth_of_date,$gender,$job,$limitcredit,$is_deleted = 0,$is_admin = 0)
   {
-    // $this->id = isset($this->id)?$this->id:$id;
-
     $this->user_name = isset($this->user_name)? $this->user_name:$user_name;
     $this->first_name = isset($this->first_name)? $this->first_name:$first_name;
     $this->last_name = isset($this->last_name)? $this->last_name:$last_name;
@@ -34,8 +31,6 @@ class user
     $this->limitcredit = isset($this->limitcredit)? $this->limitcredit:$limitcredit;
     $this->is_deleted = isset($this->is_deleted)? $this->is_deleted:$is_deleted;
     $this->is_admin = isset($this->is_admin)? $this->is_admin:$is_admin;
-    // $this->register_at = isset($this->register_at)? $this->register_at:$register_at;
-    // $this->updated_at = isset($this->updated_at)? $this->updated_at:$updated_at;
   }//end of constructor
   function __get($attr)
   {
@@ -46,29 +41,11 @@ class user
   {
     $this->$attr = $value;
   }
-  static function connection()
-  {
-    $conn = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
-    if($conn->connect_errno)
-    {
-      echo("connection to DB faild<br>".$conn->connect_error);
-      return false;
-    }
-    return $conn;//end open connection
-    // $query = $query;
-    // $stmt = $conn->prepare($query);
-    // if(!$stmt)
-    // {
-    //   echo("faild preparing query ".$conn->error)."<br>";
-    //   return false;
-    // }
-    // return $stmt;
-  }//end function connection
   //insert users
   function insert()
   {
     $success = true;
-    $conn = user::connection();
+    $conn = connection::conn();
     $query = "insert into user (user_id,user_name,first_name,last_name,pass,email,birth_of_date,gender,job,limitcredit,is_deleted,is_admin)values(null,?,?,?,?,?,?,?,?,?,?,?)";
     $stmt = $conn->prepare($query);
     if(!$stmt)
@@ -95,7 +72,7 @@ class user
   //function get by id
   static function getById($id)
   {
-    $conn = user::connection();
+    $conn = connection::conn();
     $query = "select * from user where user_id = ?";
     $stmt = $conn->prepare($query);
     if(!$stmt)
@@ -103,7 +80,7 @@ class user
       echo("faild preparing query ".$conn->error)."<br>";
       return false;
     }
-    // $stmt = user::connection("select * from user where id = ?");
+    // $stmt = connection::conn("select * from user where id = ?");
     $res = $stmt->bind_param('i', $id);
     if(!$res)
     {
@@ -126,7 +103,7 @@ class user
   static function getByUsername($username)
   {
     //$success = true;
-    $conn = user::connection();
+    $conn = connection::conn();
     $query = "select * from user where user_name = ?";
     $stmt = $conn->prepare($query);
     if(!$stmt)
@@ -156,7 +133,7 @@ class user
   static function getAll()
   {
       //$success = true;
-      $conn = user::connection();
+      $conn = connection::conn();
       $query = "select * from user";
       $stmt = $conn->prepare($query);
       if(!$stmt)
@@ -181,19 +158,19 @@ class user
       return $users;
   }//end function getAll
   //function updated
-  static function update($user)
+  function update($user)
   {
-      $conn = user::connection();
+      $conn = connection::conn();
       if($conn)
       {
-          $query = "update user set user_id= ? , user_name= ? , first_name= ?, last_name= ?, pass= ? , email= ? ,birth_of_date= ? , gender= ?, job= ?, limitcredit= ? where user_id= ?";
+          $query = "update user set user_name= ? , first_name= ?, last_name= ?, pass= ? , email= ? ,birth_of_date= ? , gender= ?, job= ?, limitcredit= ? where user_id= ?";
           $stmt = $conn->prepare($query);
           if(!$stmt)
           {
             echo("faild preparing query ".$conn->error)."<br>";
             return false;
           }
-          $res = $stmt->bind_param('issssssssii',$user['user_id'],$user['user_name'],$user['first_name'],$user['last_name'],$user['pass'],$user['email'],$user['birth_of_date'],$user['gender'],$user['job'],$user['limitcredit'], $user['oldid']);
+          $res = $stmt->bind_param('ssssssssii',$user['user_name'],$user['first_name'],$user['last_name'],$user['pass'],$user['email'],$user['birth_of_date'],$user['gender'],$user['job'],$user['limitcredit'], $user['user_id']);
           if(!$res)
           {
             echo "binding Faild".$stmt->error;
@@ -217,10 +194,48 @@ class user
           }
       }
   }//end function update
+  //function update_status
+  function update_status()
+  {
+    $conn = connection::conn();
+    if($conn)
+    {
+        $query = "update user set is_admin = 1 where user_id= ?";
+        $stmt = $conn->prepare($query);
+        if(!$stmt)
+        {
+          echo("faild preparing query ".$conn->error)."<br>";
+          return false;
+        }
+        $res = $stmt->bind_param('ii',$user['is_admin'], $user['oldid']);
+        if(!$res)
+        {
+          echo "binding Faild".$stmt->error;
+          return false;
+        }
+        // 3- execute statement
+        $stmt->execute();
+        if(!$stmt->execute())
+        {
+          echo "execution faild ".$stmt->error."<br>";
+          return false;
+        }
+        // 4- check for fail or success
+        if($stmt->affected_rows>0)
+        {
+          header('location:list.php');
+        }
+        else
+        {
+          echo "user not inserted";
+        }
+    }
+  }
+  //end function update_status
   //function delete
   static function delete($user)
   {
-      $conn = user::connection();
+      $conn = connection::conn();
       if($conn)
       {
           $query = "update user set is_deleted = 1   where user_id= ?";
@@ -240,10 +255,10 @@ class user
   }
 
 }
-// $user = new user("ammar","ammar","magdy","iti","ammar@gmail.com","1993-12-7","male","student","2000");
+// $user = new user("shima","shima","shima","iti","shima@gmail.com","1993-12-7","female","student","2000");
 // $user->insert();
-// $user = user::getById(3);
-// user::delete(user::getById(3));
+// // $user = user::getById(3);
+// // user::delete(user::getById(3));
 // echo "<pre>";
 // var_dump($user);
 // echo "</pre>";
