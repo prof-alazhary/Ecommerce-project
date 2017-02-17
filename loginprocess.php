@@ -12,7 +12,7 @@ if($user)
   }
   else
   {
-    header('Location: userprofile.php');
+    header('Location: ../index.php');
     $_SESSION['loggeduser'] = $user;
   }
 }
