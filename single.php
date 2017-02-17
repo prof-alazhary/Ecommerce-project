@@ -154,6 +154,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
         <ul class="nav navbar-nav nav_1">
 
+            <li><a class="color" href="index.php">Home</a></li>
             <?php
         	foreach ($categories as $category) {
         		?>
@@ -161,10 +162,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             	<?php
             	if($category->parent===null){
             	?>
-			    <a class="color1" href="#" class="dropdown-toggle" data-toggle="dropdown"><?= $category->cat_name ?><span class="caret"></span></a>
+			    <a class="color1" href="#" class="dropdown-toggle" data-toggle="dropdown"><?= $category->cat_name ?><span class="caret"></span></a>	
 			    <?php
-			    }
-			    ?>
+			    }	
+			    ?>		
 				<div class="dropdown-menu ">
                     <div class="menu-top">
 						<div class="col1">
@@ -173,41 +174,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								foreach ($categories as $cat) {
 									if ($category->cat_id == $cat->parent) {
 									?>
-								<h4><?= $cat->cat_name ?></h4>
-									<ul>
-										<?php
-										foreach ($products as $product) {
-    										if ($cat->cat_id == $product->cat_id) {
-    										?>
-											<li><a href="single.php?product_id=<?= $product->product_id ?>"><?= $product->product_name ?></a></li>
-											<?php
-											}
-										}
-										?>
-									</ul>
-									<h4>Other Products</h4>
+								<span style="font-size: 20px"><a href="product.php?cat_id=<?= $cat->cat_id ?>"><?= $cat->cat_name ?></a></span>
 									<?php
 									}
 								}
-								foreach ($products as $product) {
-									if($category->cat_id == $product->cat_id){
-										?>
-										<ul>
-											<li><a href="single.php?product_id=<?= $product->product_id ?>"><?= $product->product_name ?></a></li>
-										</ul>
-										<?php
-									}
-								}
+								
 								?>
-							</div>
+							</div>							
 						</div>
-
+						
 						<div class="col1 col5">
 						<img src="<?= $category->img_path ?>" class="img-responsive" alt="">
 						</div>
 						<div class="clearfix"></div>
-					</div>
-				</div>
+					</div>                  
+				</div>				
 			</li>
 			<?php
             }
@@ -227,7 +208,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<a href="wishlist.php" >
 				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
 				</a></li>
-				<li><a class="play-icon popup-with-zoom-anim" href="#small-dialog"><i class="glyphicon glyphicon-search"> </i></a></li>
+				<!-- <li><a class="play-icon popup-with-zoom-anim" href="#small-dialog"><i class="glyphicon glyphicon-search"> </i></a></li> -->
 					</ul>
 					<div class="cart box_1">
 						<a href="checkout.php">
@@ -293,37 +274,33 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div class="col-md-5 grid">
 		<div class="flexslider">
 			  <ul class="slides">
-			    <li data-thumb="images/si.jpg">
-			        <div class="thumb-image"> <img src="images/si.jpg" data-imagezoom="true" class="img-responsive"> </div>
+			    <li data-thumb="<?= $product->img_path ?>">
+			        <div class="thumb-image"> <img src="<?= $product->img_path ?>" data-imagezoom="true" class="img-responsive"> </div>
 			    </li>
-			    <li data-thumb="images/si1.jpg">
-			         <div class="thumb-image"> <img src="images/si1.jpg" data-imagezoom="true" class="img-responsive"> </div>
+			    <li data-thumb="<?= $product->img_path ?>">
+			         <div class="thumb-image"> <img src="<?= $product->img_path ?>" data-imagezoom="true" class="img-responsive"> </div>
 			    </li>
-			    <li data-thumb="images/si2.jpg">
-			       <div class="thumb-image"> <img src="images/si2.jpg" data-imagezoom="true" class="img-responsive"> </div>
+			    <li data-thumb="<?= $product->img_path ?>">
+			       <div class="thumb-image"> <img src="<?= $product->img_path ?>" data-imagezoom="true" class="img-responsive"> </div>
 			    </li>
 			  </ul>
 		</div>
 	</div>
 <div class="col-md-7 single-top-in">
 						<div class="span_2_of_a1 simpleCart_shelfItem">
-				<h3>Nam liber tempor cum</h3>
-				<p class="in-para"> There are many variations of passages of Lorem Ipsum.</p>
+				<h3><?= $product->product_name?></h3>
+				<p class="in-para"> There are many variations of passages of Taht product.</p>
 			    <div class="price_single">
-				  <span class="reducedfrom item_price">$140.00</span>
-				 <a href="#">click for offer</a>
+				  <span class="reducedfrom item_price">$<?= $product->price ?></span>
 				 <div class="clearfix"></div>
 				</div>
 				<h4 class="quick">Quick Overview:</h4>
-				<p class="quick_desc"> Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Typi non habent claritatem insitam; es</p>
+				<p class="quick_desc"> <?= $product->description ?></p>
 			    <div class="wish-list">
-				 	<ul>
-				 		<li class="wish"><a href="#"><span class="glyphicon glyphicon-check" aria-hidden="true"></span>Add to Wishlist</a></li>
-				 	    <li class="compare"><a href="#"><span class="glyphicon glyphicon-resize-horizontal" aria-hidden="true"></span>Add to Compare</a></li>
-				 	</ul>
+				 	
 				 </div>
-				 <div class="quantity">
-								<div class="quantity-select">
+				 <div class="quantity"> 
+								<div class="quantity-select">                           
 									<div class="entry value-minus">&nbsp;</div>
 									<div class="entry value"><span>1</span></div>
 									<div class="entry value-plus active">&nbsp;</div>
@@ -411,46 +388,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <div class="col-md-3 product-bottom product-at">
 			<!--categories-->
 				<div class=" rsidebar span_1_of_left">
-						<h4 class="cate">Categories</h4>
-							 <ul class="menu-drop">
-							<li class="item1"><a href="#">Men </a>
-								<ul class="cute">
-									<li class="subitem1"><a href="product.php">Cute Kittens </a></li>
-									<li class="subitem2"><a href="product.php">Strange Stuff </a></li>
-									<li class="subitem3"><a href="product.php">Automatic Fails </a></li>
-								</ul>
-							</li>
-							<li class="item2"><a href="#">Women </a>
-								<ul class="cute">
-									<li class="subitem1"><a href="product.php">Cute Kittens </a></li>
-									<li class="subitem2"><a href="product.php">Strange Stuff </a></li>
-									<li class="subitem3"><a href="product.php">Automatic Fails </a></li>
-								</ul>
-							</li>
-							<li class="item3"><a href="#">Kids</a>
-								<ul class="cute">
-									<li class="subitem1"><a href="product.php">Cute Kittens </a></li>
-									<li class="subitem2"><a href="product.php">Strange Stuff </a></li>
-									<li class="subitem3"><a href="product.php">Automatic Fails</a></li>
-								</ul>
-							</li>
-							<li class="item4"><a href="#">Accessories</a>
-								<ul class="cute">
-									<li class="subitem1"><a href="product.php">Cute Kittens </a></li>
-									<li class="subitem2"><a href="product.php">Strange Stuff </a></li>
-									<li class="subitem3"><a href="product.php">Automatic Fails</a></li>
-								</ul>
-							</li>
-
-							<li class="item4"><a href="#">Shoes</a>
-								<ul class="cute">
-									<li class="subitem1"><a href="product.php">Cute Kittens </a></li>
-									<li class="subitem2"><a href="product.php">Strange Stuff </a></li>
-									<li class="subitem3"><a href="product.php">Automatic Fails </a></li>
-								</ul>
-							</li>
-						</ul>
-					</div>
+					<h4 class="cate">Categories</h4>
+					<?php
+						foreach ($categories as $category) {
+							if($category->parent == null){
+								?>
+									<ul class="menu-drop">
+										<li class="item1"><a href="product.php?cat_id=<?= $category->cat_id ?>"><?= $category->cat_name ?> </a>
+											<?php
+												foreach ($categories as $cat) {
+													if($category->cat_id == $cat->parent){
+														?>
+														<ul class="cute">
+															<li class="subitem1"><a href="product.php?cat_id=<?= $cat->cat_id ?>"><?= $cat->cat_name ?> </a></li>
+														</ul>
+										</li>
+									</ul>
+												<?php
+													}
+												}
+							}
+						}
+					?>
+				</div>
 				<!--initiate accordion-->
 						<script type="text/javascript">
 							$(function() {
@@ -472,7 +432,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							});
 						</script>
 <!--//menu-->
- <section  class="sky-form">
+ <!-- <section  class="sky-form">
 					<h4 class="cate">Discounts</h4>
 					 <div class="row row1 scroll-pane">
 						 <div class="col col-4">
@@ -488,7 +448,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				 </section>
 
 
-					 <!---->
+					 
 					 <section  class="sky-form">
 						<h4 class="cate">Type</h4>
 							<div class="row row1 scroll-pane">
@@ -522,7 +482,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Ray-Ban</label>
 								</div>
 							</div>
-				   </section>
+				   </section> -->
 		</div>
 		<div class="clearfix"> </div>
 	</div>
