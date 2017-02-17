@@ -20,4 +20,5 @@ else
 {
   header('Location: login.php?error="Your details are wrong!!"');
 }
- ?>
+
+?>
