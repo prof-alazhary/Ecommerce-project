@@ -5,10 +5,16 @@ if(isset($_SESSION['loggeduser']))
 {
 	$user = $_SESSION['loggeduser'];
 }
+
      $categories = CategoryClass::getAllCategories();
      $products = ProductClass::getAllProducts();
 
-     $product_id = $_GET['product_id'];
+		 if (isset($_GET['product_id'])) {
+		 	$product_id = $_GET['product_id'];
+		 }
+		 else {
+		 	$product_id=1;
+		 }
      $product = ProductClass::getById($product_id);
 ?>
 
@@ -64,7 +70,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					{
 						url: "ActionOnShopCart.php",
 						method: 'POST',
-						data: { product_id:""+<?=$_GET['product_id']?>+"",
+						data: { product_id:""+<?=$product_id?>+"",
 										user_id: ""+<?=$user->user_id ?>+"",
 										quantity:1,
 										action : 'insert',

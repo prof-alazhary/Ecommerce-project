@@ -1,5 +1,5 @@
 <?php
-// require  'autoload.php';
+//require  'autoload.php';
 require_once 'config.php';
 
 class CategoryClass{
@@ -75,7 +75,7 @@ class CategoryClass{
 			echo "error connection to DB ".$conn->connect_error."<br>";
 			$success = false;
 		} //End of open connection
-		
+
 
 		$query = "select * from category where cat_id=?";
 		$statement = $conn->prepare($query);
@@ -83,7 +83,7 @@ class CategoryClass{
 			echo "error preparing query : ".$conn->error."<br>";
 			$success = false;
 		}
-		
+
 		$result = $statement->bind_param("i",$cat_id);
 		if(!$result){
 			echo "binding failed : ".$statement->error;
@@ -110,7 +110,7 @@ class CategoryClass{
 			echo "error connection to DB ".$conn->connect_error."<br>";
 			$success = false;
 		} //End of open connection
-		
+
 
 		$query = "select * from category where parent=?";
 		$statement = $conn->prepare($query);
@@ -118,7 +118,7 @@ class CategoryClass{
 			echo "error preparing query : ".$conn->error."<br>";
 			$success = false;
 		}
-		
+
 		$result = $statement->bind_param("i",$parent);
 		if(!$result){
 			echo "binding failed : ".$statement->error;

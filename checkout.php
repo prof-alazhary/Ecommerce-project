@@ -4,7 +4,6 @@ session_start();
 if(isset($_SESSION['loggeduser']))
 {
     $user = $_SESSION['loggeduser'];
-    // var_dump($user);
 }
 else
 {
@@ -316,24 +315,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!--login-->
 	<script>$(document).ready(function(c) {
 					$('.close1').on('click', function(c){
-						$('.cart-header').fadeOut('slow', function(c){
-							$('.cart-header').remove();
-						});
-						});
-					});
-			   </script>
-<script>$(document).ready(function(c) {
-					$('.close2').on('click', function(c){
-						$('.cart-header1').fadeOut('slow', function(c){
-							$('.cart-header1').remove();
-						});
-						});
-					});
-			   </script>
-			   <script>$(document).ready(function(c) {
-					$('.close3').on('click', function(c){
-						$('.cart-header2').fadeOut('slow', function(c){
-							$('.cart-header2').remove();
+						$(this).parent().fadeOut('slow', function(c){
+							$(this).parent().remove();
 						});
 						});
 					});
@@ -343,56 +326,36 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 	<div class="bs-example4" data-example-id="simple-responsive-table">
     <div class="table-responsive">
-    	    <table class="table-heading simpleCart_shelfItem">
+    	<table class="table-heading simpleCart_shelfItem">
+      <tbody>
 		  <tr>
-			<th class="table-grid">Item</th>
-
-			<th>Prices</th>
-			<th >Delivery </th>
-			<th>Subtotal</th>
+			<th>Item</th>
+			<th>Price</th>
+			<th >Quantity </th>
+			<th>Total Price</th>
 		  </tr>
-		  <tr class="cart-header">
+        <?php
+            $shop_cart=new ShopCart();
+              $arr=$shop_cart->SelectShopCartByUserId($user->user_id,0);
+            for ($i=0; $i<count($arr); $i++)
+            {
+              echo "<tr class='cart-header'>
+              <td class='ring-in'><a href='single.php' class='at-in'><img src='images/ch.jpg' class='img-responsive' alt=''></a>
+          			<div class='sed'>
+          				<h5><a href='single.php?".($arr[$i])->product_id."'>".($arr[$i])->product_name."</a></h5>
+          				<p>(At vero eos et accusamus et iusto odio dignissimos ducimus ) </p>
+          			</div>
+          			<div class='clearfix'> </div>
+          			<div class='close1'> </div></td>
+                <td>".($arr[$i])->product_price."</td>
+                <td>".($arr[$i])->quantity."</td>
+                <td>".(($arr[$i])->quantity)*(($arr[$i])->product_price)."</td>
+                                                      </tr>";
+              //<td class='add-check'><a class='item_add hvr-skew-backward' href='#'>Remove</a></td>
+            }
 
-			<td class="ring-in"><a href="single.php" class="at-in"><img src="images/ch.jpg" class="img-responsive" alt=""></a>
-			<div class="sed">
-				<h5><a href="single.php">Sed ut perspiciatis unde</a></h5>
-				<p>(At vero eos et accusamus et iusto odio dignissimos ducimus ) </p>
-
-			</div>
-			<div class="clearfix"> </div>
-			<div class="close1"> </div></td>
-			<td>$100.00</td>
-			<td>FREE SHIPPING</td>
-			<td class="item_price">$100.00</td>
-			<td class="add-check"><a class="item_add hvr-skew-backward" href="#">Add To Cart</a></td>
-		  </tr>
-		  <tr class="cart-header1">
-		  <td class="ring-in"><a href="single.php" class="at-in"><img src="images/ch2.jpg" class="img-responsive" alt=""></a>
-			<div class="sed">
-				<h5><a href="single.php">Sed ut perspiciatis unde</a></h5>
-				<p>(At vero eos et accusamus et iusto odio dignissimos ducimus ) </p>
-			</div>
-			<div class="clearfix"> </div>
-			<div class="close2"> </div></td>
-			<td>$100.00</td>
-			<td>FREE SHIPPING</td>
-			<td class="item_price">$100.00</td>
-			<td class="add-check"><a class="item_add hvr-skew-backward" href="#">Add To Cart</a></td>
-		  </tr>
-		  <tr class="cart-header2">
-		  <td class="ring-in"><a href="single.php" class="at-in"><img src="images/ch1.jpg" class="img-responsive" alt=""></a>
-			<div class="sed">
-				<h5><a href="single.php">Sed ut perspiciatis unde</a></h5>
-				<p>(At vero eos et accusamus et iusto odio dignissimos ducimus ) </p>
-			</div>
-			<div class="clearfix"> </div>
-			<div class="close3"> </div></td>
-			<td>$100.00</td>
-			<td>FREE SHIPPING</td>
-			<td class="item_price">$100.00</td>
-			<td class="add-check"><a class="item_add hvr-skew-backward" href="#">Add To Cart</a></td>
-		  </tr>
-
+         ?>
+       </tbody>
 	</table>
 	</div>
 	</div>
