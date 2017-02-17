@@ -113,7 +113,32 @@ class ShopCart{
         $stmt->close();
         $conn->close();
     }
+    public function selectSumQuant($user_id,$paied)
+    {
+      $conn=connection::conn();
+      $query = "SELECT SUM(quantity)FROM shop_cart where user_id=? and paied=?";
+      $stmt = $conn->prepare($query);
+      if(!$stmt){
+        echo "<br>".$conn->error."<br>";
+        exit;
+      }
+      $stmt->bind_param('ii',$user_id,$paied);
+      $stmt->execute();
+      $stmt->store_result();
+      $stmt->bind_result($sumQuantity);
+      while ($stmt->fetch()) {
+        $result = array($sumQuantity );
+      }
+      $stmt->close();
+      $conn->close();
+      return $result;
+    }
 
 }
-
+$sh= new ShopCart();
+$total_quant=$sh->selectSumQuant(10,0);
+var_dump($total_quant);
+if ($total_quant[0]==null) {
+  echo "string";
+}
  ?>

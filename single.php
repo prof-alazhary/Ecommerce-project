@@ -40,6 +40,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!--- start-rate---->
 <script src="js/jstarbox.js"></script>
 	<link rel="stylesheet" href="css/jstarbox.css" type="text/css" media="screen" charset="utf-8" />
+	<script src="js/myScript.js"></script>
 		<script type="text/javascript">
 			jQuery(function() {
 			jQuery('.starbox').each(function() {
@@ -59,7 +60,30 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					}
 				})
 			});
-		
+			counter=0;
+		  jQuery('#add-to-cart').on('click',function(e)
+		  {
+		    e.preventDefault();
+		    jQuery('.simpleCart_empty').text('');
+		    counter++;
+		    jQuery('#counter-cart').text(counter);
+		    myAjax = jQuery.ajax(
+		      {
+		        url: "ActionOnShopCart.php",
+		        method: 'POST',
+		        data: { product_id:""+<?=$product_id?>+"",
+		                user_id: ""+<?=$user->user_id ?>+"",
+		                quantity:1,
+		                action : 'insert'
+		              }
+		      }).done(function(data) {
+		      //$(this).addClass( "done" );
+		        alert(data);
+		      }).fail(function(data) {
+		      //$(this).addClass( "fail" );
+		        alert(data);
+		      });
+				});
 		});
 		</script>
 <!---//End-rate---->

@@ -41,6 +41,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="../js/jquery.min.js"></script>
 <!--- start-rate---->
 <script src="../js/jstarbox.js"></script>
+<script src="../js/myScript.js"></script>
  <link rel="stylesheet" href="../css/jstarbox.css" type="text/css" media="screen" charset="utf-8" />
    <script type="text/javascript">
      jQuery(function() {

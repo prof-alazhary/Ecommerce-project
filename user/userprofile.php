@@ -34,6 +34,7 @@ $products = ProductClass::getAllProducts();
  <script src="../js/jquery.min.js"></script>
  <!--- start-rate---->
  <script src="../js/jstarbox.js"></script>
+ <script src="../js/myScript.js"></script>
  	<link rel="stylesheet" href="../css/jstarbox.css" type="text/css" media="screen" charset="utf-8" />
  		<script type="text/javascript">
  			jQuery(function() {
@@ -280,12 +281,14 @@ $products = ProductClass::getAllProducts();
 			<th>Total Price</th>
 		  </tr>
         <?php
-            $shop_cart=new ShopCart();
-              $arr=$shop_cart->SelectShopCartByUserId($user->user_id,1);
+          $shop_cart=new ShopCart();
+          $arr=$shop_cart->SelectShopCartByUserId($user->user_id,1);
+          if(count($arr)>0)
+          {
             for ($i=0; $i<count($arr); $i++)
             {
-              echo "<tr class='cart-header'>
-              <td class='ring-in'><a href='single.php' class='at-in'><img src='../images/ch.jpg' class='img-responsive' alt=''></a>
+              echo "<tr id='".($arr[$i])->product_id."' class='cart-header'>
+              <td class='ring-in'><a href='single.php".($arr[$i])->product_id."' class='at-in'><img src='../images/ch.jpg' class='img-responsive' alt=''></a>
           			<div class='sed'>
           				<h5><a href='single.php?".($arr[$i])->product_id."'>".($arr[$i])->product_name."</a></h5>
           				<p>(At vero eos et accusamus et iusto odio dignissimos ducimus ) </p>
@@ -296,9 +299,8 @@ $products = ProductClass::getAllProducts();
                 <td>".($arr[$i])->quantity."</td>
                 <td>".(($arr[$i])->quantity)*(($arr[$i])->product_price)."</td>
                                                       </tr>";
-              //<td class='add-check'><a class='item_add hvr-skew-backward' href='#'>Remove</a></td>
             }
-
+          }
          ?>
        </tbody>
 	</table>
