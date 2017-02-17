@@ -127,7 +127,7 @@ class ShopCart{
       $stmt->store_result();
       $stmt->bind_result($sumQuantity);
       while ($stmt->fetch()) {
-        $result = array($sumQuantity );
+        $result = $sumQuantity;
       }
       $stmt->close();
       $conn->close();
@@ -135,10 +135,5 @@ class ShopCart{
     }
 
 }
-$sh= new ShopCart();
-$total_quant=$sh->selectSumQuant(10,0);
-var_dump($total_quant);
-if ($total_quant[0]==null) {
-  echo "string";
-}
+
  ?>

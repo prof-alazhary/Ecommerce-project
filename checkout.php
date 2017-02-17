@@ -4,8 +4,10 @@ session_start();
 if(isset($_SESSION['loggeduser']))
 {
     $user = $_SESSION['loggeduser'];
-    $arr=$_SESSION['total_quant'];
-    $total_quant=$arr['sumQuant'];
+    $total_quant=$_SESSION['total_quant'];
+    if ($total_quant==NULL) {
+      $total_quant=0;
+    }
     echo "<script type='text/javascript'>alert(".$total_quant.")</script>";
 }
 else
