@@ -1,5 +1,5 @@
 <?php
-//require  'autoload.php';
+// require  'autoload.php';
 require_once 'config.php';
 
 class CategoryClass{
@@ -75,7 +75,7 @@ class CategoryClass{
 			echo "error connection to DB ".$conn->connect_error."<br>";
 			$success = false;
 		} //End of open connection
-
+		
 
 		$query = "select * from category where cat_id=?";
 		$statement = $conn->prepare($query);
@@ -83,7 +83,7 @@ class CategoryClass{
 			echo "error preparing query : ".$conn->error."<br>";
 			$success = false;
 		}
-
+		
 		$result = $statement->bind_param("i",$cat_id);
 		if(!$result){
 			echo "binding failed : ".$statement->error;
@@ -110,7 +110,7 @@ class CategoryClass{
 			echo "error connection to DB ".$conn->connect_error."<br>";
 			$success = false;
 		} //End of open connection
-
+		
 
 		$query = "select * from category where parent=?";
 		$statement = $conn->prepare($query);
@@ -118,7 +118,7 @@ class CategoryClass{
 			echo "error preparing query : ".$conn->error."<br>";
 			$success = false;
 		}
-
+		
 		$result = $statement->bind_param("i",$parent);
 		if(!$result){
 			echo "binding failed : ".$statement->error;
@@ -279,13 +279,13 @@ class CategoryClass{
 			$success = false;
 		} //End of open connection
 
-		$query = "update category set cat_name = ?,img_path=?,img_cat=?,description=? where cat_id=?";
+		$query = "update category set cat_name = ?,img_path=?,img_cat=?,description=?,parent=? where cat_id=?";
 		$statement = $conn->prepare($query);
 		if(!$statement){
 			echo "error preparing query : ".$conn->error."<br>";
 			$success = false;
 		}
-		$result = $statement->bind_param("ssssi",$this->cat_name,$this->img_path,$this->img_cat,$this->description,$this->cat_id);
+		$result = $statement->bind_param("sssisi",$this->cat_name,$this->img_path,$this->img_cat,$this->cat_id,$this->description,$this->parent);
 		if(!$result){
 			echo "binding failed : ".$statement->error;
 			$success = false;
@@ -301,39 +301,6 @@ class CategoryClass{
 		return $success;
 	}//End of update function
 
-	static function getUserInterests(){
-		$success = true;
-		$conn = new mysqli(DBHOST , DBUSER , DBPASS, DBNAME);
-
-		if($conn->connect_errno){
-			echo "error connection to DB ".$conn->connect_error."<br>";
-			$success = false;
-		} //End of open connection
-
-		$query = "select * from category, interest where category.cat_id = interest.cat_id;";
-		$statement = $conn->prepare($query);
-		if(!$statement){
-			echo "error preparing query : ".$conn->error."<br>";
-			$success = false;
-		}
-
-		if(!$statement->execute()){
-			echo "execution failed : ".$statement->error;
-			$success=false;
-		}// End of insert method
-
-		$result = $statement->get_result();
-		$categories = [];
-		$params = array('cat_id','cat_name','img_path','img_cat','description','parent');
-		while($category = $result->fetch_object('CategoryClass',$params)){
-			$categories[] = $category;
-		}
-
-		$statement->close();
-		$conn->close();
-		return $categories;
-	}//End of allCategories function
-
 
 }
 
@@ -343,7 +310,6 @@ class CategoryClass{
 // $category->img_path="images/pc.jpg";
 // $category->img_cat="images/pc1.jpg";
 // $category->description = "skjdadhkahfkj";
-// $category->parent=1;
 // if($category->insert()){
 // 	echo $category->cat_name."Inserted Succssefully";
 // }
@@ -368,8 +334,8 @@ class CategoryClass{
 // 	echo $category->cat_name."deleted Successfully";
 //  }
 
-// $category = CategoryClass::getById('3');
-// $category->description = 'new products available';
+// $category = CategoryClass::getById(6);
+// $category->cat_id = '21';
 // if($category->update()){
 // 	echo "Succeed";
 // }
