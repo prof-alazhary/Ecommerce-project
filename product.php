@@ -120,6 +120,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
     <div class="collapse navbar-collapse" id="bs-megadropdown-tabs">
         <ul class="nav navbar-nav nav_1">
 
+            <li><a class="color" href="index.php">Home</a></li>
             <?php
         	foreach ($categories as $category) {
         		?>
@@ -127,10 +128,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             	<?php
             	if($category->parent===null){
             	?>
-			    <a class="color1" href="#" class="dropdown-toggle" data-toggle="dropdown"><?= $category->cat_name ?><span class="caret"></span></a>
+			    <a class="color1" href="#" class="dropdown-toggle" data-toggle="dropdown"><?= $category->cat_name ?><span class="caret"></span></a>	
 			    <?php
-			    }
-			    ?>
+			    }	
+			    ?>		
 				<div class="dropdown-menu ">
                     <div class="menu-top">
 						<div class="col1">
@@ -139,41 +140,21 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								foreach ($categories as $cat) {
 									if ($category->cat_id == $cat->parent) {
 									?>
-								<h4><?= $cat->cat_name ?></h4>
-									<ul>
-										<?php
-										foreach ($products as $product) {
-    										if ($cat->cat_id == $product->cat_id) {
-    										?>
-											<li><a href="single.php?product_id=<?= $product->product_id ?>"><?= $product->product_name ?></a></li>
-											<?php
-											}
-										}
-										?>
-									</ul>
-									<h4>Other Products</h4>
+								<span style="font-size: 20px"><a href="product.php?cat_id=<?= $cat->cat_id ?>"><?= $cat->cat_name ?></a></span>
 									<?php
 									}
 								}
-								foreach ($products as $product) {
-									if($category->cat_id == $product->cat_id){
-										?>
-										<ul>
-											<li><a href="single.php?product_id=<?= $product->product_id ?>"><?= $product->product_name ?></a></li>
-										</ul>
-										<?php
-									}
-								}
+								
 								?>
-							</div>
+							</div>							
 						</div>
-
+						
 						<div class="col1 col5">
 						<img src="<?= $category->img_path ?>" class="img-responsive" alt="">
 						</div>
 						<div class="clearfix"></div>
-					</div>
-				</div>
+					</div>                  
+				</div>				
 			</li>
 			<?php
             }
@@ -193,7 +174,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<a href="wishlist.php" >
 				<span class="glyphicon glyphicon-heart" aria-hidden="true"></span>
 				</a></li>
-				<li><a class="play-icon popup-with-zoom-anim" href="#small-dialog"><i class="glyphicon glyphicon-search"> </i></a></li>
+				<!-- <li><a class="play-icon popup-with-zoom-anim" href="#small-dialog"><i class="glyphicon glyphicon-search"> </i></a></li> -->
 					</ul>
 					<div class="cart box_1">
 						<a href="checkout.php">
@@ -350,25 +331,39 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 							});
 						</script>
-<!--//menu-->
- <section  class="sky-form">
-					<h4 class="cate">Discounts</h4>
-					 <div class="row row1 scroll-pane">
-						 <div class="col col-4">
+				<!--//menu-->
+						<section  class="sky-form">
+							<form method="post" action="search.php"/>
+							<h4 class="cate">Search</h4>
+					 		<div class="row row1 scroll-pane">
+								<div class="col col-4">
+									<input type="text" class="form-control" placeholder="Search..." id="txtSearch" name="txtSearch" />
+						 		</div>
+						 		<div align="right">
+						 			<input name="submit" type="submit" value="Search" class="btn btn-primary">
+						 		</div>
+					 		</div>
+					 		</form>
+				 		</section>
+
+
+ 					<!--<section  class="sky-form">
+						<h4 class="cate">Discounts</h4>
+					 	<div class="row row1 scroll-pane">
+							<div class="col col-4">
 								<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i></i>Upto - 10% (20)</label>
-						 </div>
-						 <div class="col col-4">
+						 	</div>
+						<div class="col col-4">
 								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>40% - 50% (5)</label>
 								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>30% - 20% (7)</label>
 								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>10% - 5% (2)</label>
 								<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Other(50)</label>
-						 </div>
-					 </div>
-				 </section>
+						</div>
+					 	</div>
+				 	</section>
 
 
-					 <!---->
-					 <section  class="sky-form">
+					  <section  class="sky-form">
 						<h4 class="cate">Type</h4>
 							<div class="row row1 scroll-pane">
 								<div class="col col-4">
@@ -401,7 +396,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<label class="checkbox"><input type="checkbox" name="checkbox"><i></i>Ray-Ban</label>
 								</div>
 							</div>
-				   </section>
+				   </section> -->
 		</div>
 			<div class="clearfix"></div>
 			</div>
