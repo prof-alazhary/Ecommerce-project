@@ -313,14 +313,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	</div>
 </div>
 <!--login-->
-	<script>$(document).ready(function(c) {
-					$('.close1').on('click', function(c){
-						$(this).parent().fadeOut('slow', function(c){
-							$(this).parent().remove();
-						});
-						});
-					});
-			   </script>
 <div class="check-out">
 <div class="container">
 
@@ -335,8 +327,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<th>Total Price</th>
 		  </tr>
         <?php
-            $shop_cart=new ShopCart();
-              $arr=$shop_cart->SelectShopCartByUserId($user->user_id,0);
+           $shop_cart=new ShopCart();
+           $arr=$shop_cart->SelectShopCartByUserId($user->user_id,0);
+           echo 'cooooount'.count($arr);
+           if(count($arr)>0)
+           {
             for ($i=0; $i<count($arr); $i++)
             {
               echo "<tr class='cart-header'>
@@ -353,7 +348,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
                                                       </tr>";
               //<td class='add-check'><a class='item_add hvr-skew-backward' href='#'>Remove</a></td>
             }
-
+           }
          ?>
        </tbody>
 	</table>
