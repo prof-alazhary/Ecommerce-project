@@ -7,7 +7,7 @@ if(isset($_POST))
     {
       case 'select':
           $myvar= new ShopCart();
-          $myvar->SelectShopCartByUserId($_POST['usert_id']);
+          $myvar->SelectShopCartByUserId($_POST['user_id']);
         break;
       case 'insert':
           $ss= new ShopCart();
