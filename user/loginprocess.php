@@ -7,12 +7,12 @@ if($user)
 {
   if($user->user_name == "admin")
   {
-    header('Location: ../admin/managecategory.php');
+    header('Location: ../admin/admin.php');
     $_SESSION['loggeduser'] = $user;
   }
   else
   {
-    header('Location: userprofile.php');
+    header('Location: ../index.php');
     $_SESSION['loggeduser'] = $user;
   }
 }
