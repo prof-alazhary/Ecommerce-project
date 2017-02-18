@@ -343,6 +343,19 @@ $products = ProductClass::getAllProducts();
                 </div>
               </div>
             </div>
+            <div class="col-md-6 col-sm-9">
+            <select name="superCat" class="form-control">
+              <?php
+                foreach ($categories as $category) {
+                    if($category->parent == null){
+                  ?>
+                    <option value="<?= $category->cat_id ?>"><?= $category->cat_name ?></option>
+                  <?php
+                    }
+                }
+              ?>
+            </select>
+            </div>
             <div class="form-group">
               <div class="col-xs-offset-6 col-xs-12">
                 <input name="Submit" type="submit" value="Sign Up" class="btn btn-primary">
