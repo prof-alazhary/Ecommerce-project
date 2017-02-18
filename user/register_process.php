@@ -15,9 +15,11 @@ $user = new user($_POST['user_name'],
                 $_POST['gender'],
                 $_POST['job'],
                 $_POST['limitcredit']);
-$success = $user->insert();
-if($success)
+$userInt = $_POST['superCat'];
+// $success = $user->insert();
+if($user->insert())
 {
+    $interests = new InterestsClass($_POST['superCat'],$user->user_id);
     // echo "user inserted successfully";
     if($user->username == 'admin')
     {
