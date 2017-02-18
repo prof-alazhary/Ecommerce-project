@@ -1,17 +1,18 @@
 <?php
 require_once '../DBClasses/autoload.php';
 session_start();
+$categories = CategoryClass::getAllCategories();
+$products = ProductClass::getAllProducts();
 if(isset($_SESSION['loggeduser']))
 {
     $user = $_SESSION['loggeduser'];
-    // var_dump($user);
-}
-else
+
+}else
 {
-    header('Location: ../user/login.php?error=your are not logged in');
+  header('Location: login.php?error=your are not logged in');
+
 }
-$categories = CategoryClass::getAllCategories();
-$products = ProductClass::getAllProducts();
+
  ?>
  <!DOCTYPE html>
  <html>
@@ -79,7 +80,18 @@ $products = ProductClass::getAllProducts();
  		<div class="container">
  		<div class="col-sm-5 col-md-offset-2  header-login">
  					<ul >
- 						<li><i class="glyphicon glyphicon-user" style="color:#c0c0c0"></i><a href="#"><?=$user->user_name?></a></li>
+            <?php
+
+            if(isset($_SESSION['loggeduser']))
+            {
+
+             echo "<li><i class='glyphicon glyphicon-user' style='color:#c0c0c0'></i><a href='#'>".$user->user_name."</a></li>";
+             echo "<li><a href='logout.php'>Logout</a></li>";
+           }else {
+             echo "<li><a href='user/login.php'>Login</a></li>";
+             echo "<li><a href='user/register.php'>Register</a></li>";
+           }
+            ?>
  						<li><a href="../checkout.php">Checkout</a></li>
  					</ul>
  				</div>
@@ -198,6 +210,7 @@ $products = ProductClass::getAllProducts();
  						<a href="../checkout.php">
  						<h3> <div class="total">
  							<span class="simpleCart_total"></span></div>
+              <div class="counter-product" style="float: right;">  <span id="counter-cart" class="badge">0</span> </div>
  							<img src="../images/cart.png" alt=""/></h3>
  						</a>
  						<p><a href="javascript:;" class="simpleCart_empty">Empty Cart</a></p>
@@ -241,6 +254,7 @@ $products = ProductClass::getAllProducts();
  		</div>
  	</div>
  </div>
+ 	<!--banner--->
  <div class="banner-top">
  	<div class="container">
  		<h1><?=$user->user_name?></h1>
