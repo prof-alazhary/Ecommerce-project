@@ -6,7 +6,7 @@ include_once 'header.php';
 	<div class="container">
 		<h1>404</h1>
 		<em></em>
-		<h2><a href="index.html">Home</a><label>/</label>404</h2>
+		<h2><a href="index.php">Home</a><label>/</label>404</h2>
 	</div>
 </div>
 <!--login-->
@@ -14,7 +14,7 @@ include_once 'header.php';
 		<div class="four">
 		<h3>404</h3>
 		<p>Sorry! Evidently the document you were looking for has either been moved or no longer exist.</p>
-		<a href="index.html" class="hvr-skew-backward">Back To Home</a>
+		<a href="index.php" class="hvr-skew-backward">Back To Home</a>
 		</div>
 	</div>
 <!--//login-->
@@ -45,22 +45,22 @@ include_once 'header.php';
 	<div class="footer-middle">
 				<div class="container">
 					<div class="col-md-3 footer-middle-in">
-						<a href="index.html"><img src="images/log.png" alt=""></a>
+						<a href="index.php"><img src="images/log.png" alt=""></a>
 						<p>Suspendisse sed accumsan risus. Curabitur rhoncus, elit vel tincidunt elementum, nunc urna tristique nisi, in interdum libero magna tristique ante. adipiscing varius. Vestibulum dolor lorem.</p>
 					</div>
 
 					<div class="col-md-3 footer-middle-in">
 						<h6>Information</h6>
 						<ul class=" in">
-							<li><a href="404.html">About</a></li>
-							<li><a href="contact.html">Contact Us</a></li>
+							<li><a href="404.php">About</a></li>
+							<li><a href="contact.php">Contact Us</a></li>
 							<li><a href="#">Returns</a></li>
-							<li><a href="contact.html">Site Map</a></li>
+							<li><a href="contact.php">Site Map</a></li>
 						</ul>
 						<ul class="in in1">
 							<li><a href="#">Order History</a></li>
-							<li><a href="wishlist.html">Wish List</a></li>
-							<li><a href="login.html">Login</a></li>
+							<li><a href="wishlist.php">Wish List</a></li>
+							<li><a href="login.php">Login</a></li>
 						</ul>
 						<div class="clearfix"></div>
 					</div>

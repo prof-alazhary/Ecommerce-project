@@ -181,7 +181,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<div class="cart box_1">
 						<a href="checkout.php">
 						<h3> <div class="total">
-							<span class="simpleCart_total"></span></div>
+							<span class="ShopCart_total">0</span></div>
 							<div class="counter-product" style="float: right;">  <span id="counter-cart" class="badge">0</span> </div>
 							<img src="images/cart.png" alt=""/></h3>
 						</a>

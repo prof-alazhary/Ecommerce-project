@@ -29,10 +29,16 @@ else
 <!--login-->
 <div class="check-out">
 <div class="container">
-
+<script type="text/javascript">
+  jQuery(function () {
+    jQuery('#mytable').css({
+        display : 'block'
+    });
+  })
+</script>
 	<div class="bs-example4" data-example-id="simple-responsive-table">
     <div class="table-responsive">
-    	<table class="table-heading simpleCart_shelfItem">
+    	<table id="mytable" class="table-heading simpleCart_shelfItem">
       <tbody>
 		  <tr>
 			<th>Item</th>
@@ -43,7 +49,7 @@ else
       <?php
           $shop_cart=new ShopCart();
           $arr=$shop_cart->SelectShopCartByUserId($user->user_id,0);
-          if(count($arr)>0)
+          if($arr[0]!=NULL)
           {
           for ($i=0; $i<count($arr); $i++)
           {
@@ -68,7 +74,7 @@ else
 	</div>
 	</div>
 	<div class="produced">
-	<a href="single.php" class="hvr-skew-backward">Produced To Buy</a>
+	<a href="single.php" id="Produced_To_Buy" class="hvr-skew-backward">Produced To Buy</a>
 	 </div>
 </div>
 </div>

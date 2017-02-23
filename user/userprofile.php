@@ -209,7 +209,7 @@ if(isset($_SESSION['loggeduser']))
  					<div class="cart box_1">
  						<a href="../checkout.php">
  						<h3> <div class="total">
- 							<span class="simpleCart_total"></span></div>
+ 							<span class="ShopCart_total">0</span></div>
               <div class="counter-product" style="float: right;">  <span id="counter-cart" class="badge">0</span> </div>
  							<img src="../images/cart.png" alt=""/></h3>
  						</a>
@@ -280,8 +280,8 @@ if(isset($_SESSION['loggeduser']))
           <div class="row-fluid">
           <div class="form-group" >
             <div class="col-xs-offset-2 col-xs-8" style="margin-top:5%">
-              <a href="profile_update.php"><button>UPDATE</button></a>
-              <button id="btnHist">History</button></a>
+              <a href="profile_update.php"><button class="btn btn-1 btn-primary">UPDATE your Profile</button></a>
+              <button id="btnHist" class="btn btn-1 btn-primary">History of Orders</button></a>
             </div>
 
           </div>
@@ -297,7 +297,7 @@ if(isset($_SESSION['loggeduser']))
         <?php
           $shop_cart=new ShopCart();
           $arr=$shop_cart->SelectShopCartByUserId($user->user_id,1);
-          if(count($arr)>0)
+          if($arr[0]!=NULL)
           {
             for ($i=0; $i<count($arr); $i++)
             {
@@ -308,7 +308,6 @@ if(isset($_SESSION['loggeduser']))
           				<p>(At vero eos et accusamus et iusto odio dignissimos ducimus ) </p>
           			</div>
           			<div class='clearfix'> </div>
-          			<div class='close1'> </div></td>
                 <td>".($arr[$i])->product_price."</td>
                 <td>".($arr[$i])->quantity."</td>
                 <td>".(($arr[$i])->quantity)*(($arr[$i])->product_price)."</td>

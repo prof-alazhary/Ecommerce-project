@@ -15,7 +15,7 @@ if(isset($_POST))
           break;
       case 'update':
           $ss= new ShopCart();
-          $ss->UpdateShopCart($_POST['user_id'],$_POST['product_id']);
+          $ss->UpdateShopCart($_POST['user_id']);
             break;
       case 'delete':
           $ss= new ShopCart();

@@ -11,7 +11,6 @@ jQuery(function () {
                 method: 'POST',
                 data: { product_id:prod_id,
                         user_id: user_id,
-                        quantity:1,
                         action : 'delete'
                       }
               }).done(function(data) {
@@ -27,12 +26,38 @@ jQuery(function () {
     jQuery('#mytable').css({
         display : 'none'
     });
+		flag_to_show=0;
     jQuery('#btnHist').on('click',function (){
-        jQuery('#mytable').css({
-            display : 'block'
-        });
-
+				if (flag_to_show==1) {
+					jQuery('#mytable').css({
+							display : 'none'
+					});
+					flag_to_show=0;
+				}else {
+					jQuery('#mytable').css({
+							display : 'block'
+					});
+						flag_to_show=1;
+				}
     });
-
+		var user_id=$('.close1').parent().parent().attr('user');
+		jQuery('#Produced_To_Buy').on('click',function (e) {
+				e.preventDefault();
+				jQuery.ajax({
+					url: "ActionOnShopCart.php",
+					method: 'POST',
+					data: {	user_id:user_id ,
+									action : 'update'
+								}
+				}).done(function(data) {
+					jQuery('#mytable').css({
+							display : 'none'
+					});
+					alert(data);
+				}).fail(function(data) {
+				//$(this).addClass( "fail" );
+					alert(data);
+				});
+		})
 
 })

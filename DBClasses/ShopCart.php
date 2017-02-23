@@ -75,21 +75,21 @@ class ShopCart{
         $stmt->close();
         $conn->close();
     }
-    public function UpdateShopCart($user_id, $product_id)
+    public function UpdateShopCart($user_id)
     {
         $conn=connection::conn();
-        $query = "update shop_cart set buy_at=CURRENT_DATE,paied=1 where user_id=? and product_id=? and paied=0";
+        $query = "update shop_cart set buy_at=CURRENT_DATE,paied=1 where user_id=? and paied=0";
         $stmt = $conn->prepare($query);
         if(!$stmt){
           echo "<br>".$conn->error."<br>";
           exit;
         }
-        $stmt->bind_param('ii',$user_id,$product_id);
+        $stmt->bind_param('i',$user_id);
         $stmt->execute();
         if($stmt->affected_rows>0){
-      	echo "shop_cart updated successfully";
+      	echo "تمت عملية الشراء بنجاح ..";
       	}else{
-      		echo "shop_cart not updated";
+      		echo "لم تتم عملية الشراء ! راجع حسابك النقدي الخاص"   ;
       	}
         $stmt->close();
         $conn->close();
