@@ -163,7 +163,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
             ?>
 
 			<li><a class="color4" href="404.php">About</a></li>
-            <li><a class="color5" href="typo.php">Short Codes</a></li>
+    <!--        <li><a class="color5" href="typo.php">Short Codes</a></li> -->
             <li ><a class="color6" href="contact.php">Contact</a></li>
         </ul>
      </div><!-- /.navbar-collapse -->

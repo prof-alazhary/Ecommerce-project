@@ -1,4 +1,37 @@
 <?php
+session_start();
+require_once __DIR__.'/php-sdk/src/Facebook/autoload.php';
+$fb=new Facebook\Facebook([
+    'app_id'=>"216896112116306",
+    'app_secret'=>"99188f2e25795f6015e8de1eae71aa5a",
+    'default_graph_version'=>'v2.8'
+]);
+if(!isset($_GET['flag']))
+{
+  echo "flag not set";
+  $helper=$fb->getRedirectLoginHelper();
+  $permissions=['email','publish_actions','public_profile','user_friends','user_posts'];
+  $url=$helper->getLoginUrl("http://localhost/Ecommerce-project/user/callback.php",$permissions);
+  header('Location:'.$url);
+}else {
+  //echo "flag seeeeet";
+  // get access token from file
+  $access_token = file_get_contents("file.txt");
+  $fb->setDefaultAccessToken($access_token);
+  // store on session.
+  // public_profile permission
+  $response=$fb->get('/me?fields=id,name,picture');
+  $user_face=$response->getGraphUser();
+  //echo $user_face['name'];
+  $pic=json_decode($user_face['picture'])->url;
+  //print_r($pic);
+  //echo "<img src='{$pic}'/>";
+
+}
+
+ ?>
+
+<?php
 require_once '../DBClasses/CategoryClass.php';
 require_once '../DBClasses/ProductClass.php';
 $categories = CategoryClass::getAllCategories();
@@ -255,8 +288,10 @@ $products = ProductClass::getAllProducts();
                <label for="name" class="control-label col-sm-3">First Name <span class="text-danger">*</span></label>
                <div class="col-md-8 col-sm-9">
                     <div class="input-group">
+                      <img src="<?=$pic?>"/>
                       <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                      <input type="text" class="form-control" name="first_name" id="name" placeholder="First Name"/>
+
+                      <input type="text" class="form-control" name="first_name" id="name" placeholder="First Name" value="<?=$user_face['name']?>"/>
                     </div>
                </div>
            </div>

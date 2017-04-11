@@ -83,7 +83,8 @@ require_once 'DBClasses/autoload.php';
 													if($category->cat_id == $cat->parent){
 														?>
 														<ul class="cute">
-															<li class="subitem1"><a href="product.php?cat_id=<?= $cat->cat_id ?>"><?= $cat->cat_name ?> </a></li>
+															<li class="subitem1">
+                                <a href="product.php?cat_id=<?= $cat->cat_id ?>"><?= $cat->cat_name ?> </a></li>
 														</ul>
 										</li>
 									</ul>
@@ -118,7 +119,7 @@ require_once 'DBClasses/autoload.php';
 						</script>
 				<!--//menu-->
 						<section  class="sky-form">
-							<form method="post" action="search.php"/>
+						<!--	<form method="post" action="search.php"/>
 							<h4 class="cate">Search</h4>
 					 		<div class="row row1 scroll-pane">
 								<div class="col col-4">
@@ -128,7 +129,7 @@ require_once 'DBClasses/autoload.php';
 						 			<input name="submit" type="submit" value="Search" class="btn btn-primary">
 						 		</div>
 					 		</div>
-					 		</form>
+            </form>-->
 				 		</section>
 
 
@@ -185,7 +186,7 @@ require_once 'DBClasses/autoload.php';
 		</div>
 			<div class="clearfix"></div>
 			</div>
-				<!--products-->
+				<!-- -->
 
 			<!--//products-->
 		<!--brand-->
