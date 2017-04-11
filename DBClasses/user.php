@@ -158,7 +158,7 @@ class user
       return $users;
   }//end function getAll
   //function updated
-  function update($user)
+  function update($user,$id)
   {
       $conn = connection::conn();
       if($conn)
@@ -170,27 +170,29 @@ class user
             echo("faild preparing query ".$conn->error)."<br>";
             return false;
           }
-          $res = $stmt->bind_param('ssssssssii',$user['user_name'],$user['first_name'],$user['last_name'],$user['pass'],$user['email'],$user['birth_of_date'],$user['gender'],$user['job'],$user['limitcredit'], $user['user_id']);
+
+          $res = $stmt->bind_param('ssssssssii',$user['user_name'],$user['first_name'],$user['last_name'],$user['pass'],$user['email'],$user['birth_of_date'],$user['gender'],$user['job'],$user['limitcredit'], $id);
           if(!$res)
           {
             echo "binding Faild".$stmt->error;
             return false;
           }
           // 3- execute statement
-          $stmt->execute();
+          // $stmt->execute();
           if(!$stmt->execute())
           {
             echo "execution faild ".$stmt->error."<br>";
-            return false;
+            // return false;
           }
           // 4- check for fail or success
           if($stmt->affected_rows>0)
           {
-          	header('location:list.php');
+            var_dump($stmt);
+           header('location:userprofile.php');
           }
           else
           {
-          	echo "user not inserted";
+          	echo "user not updated";
           }
       }
   }//end function update

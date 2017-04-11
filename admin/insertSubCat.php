@@ -1,4 +1,5 @@
 <?php
+    require_once 'nav.php';
     require_once '../DBClasses/autoload.php';
 
      $categories = CategoryClass::getAllCategories();

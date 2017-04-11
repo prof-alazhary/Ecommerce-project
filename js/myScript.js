@@ -59,5 +59,6 @@ jQuery(function () {
 					alert(data);
 				});
 		})
+		$('#counter-cart').text()
 
 })

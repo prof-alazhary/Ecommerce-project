@@ -7,6 +7,9 @@ if(isset($_SESSION['loggeduser']))
     $user = $_SESSION['loggeduser'];
     // var_dump($user);
 }
+if ($_SESSION['total_quant']!=NULL) {
+  var_dump($_SESSION['total_quant']);
+}
      $categories = CategoryClass::getAllCategories();
      $products = ProductClass::getAllProducts();
      $prods = ProductClass::getByCatId(4);

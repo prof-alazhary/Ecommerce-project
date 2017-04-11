@@ -1,4 +1,5 @@
 <?php
+require_once 'nav.php';
 require_once 'config.php';
 
 class ProductClass{
@@ -9,7 +10,7 @@ class ProductClass{
 	private $description;
 	private $price;
 	private $quantity;
-	
+
 	function __construct(){
 
 	}
@@ -19,7 +20,7 @@ class ProductClass{
 	// 	){
 	// 	$this->product_id =isset($this->product_id )?$this->product_id:$product_id ;
 	// 	$this->cat_id=isset($this->cat_id)?$this->cat_id:$cat_id;
-	// 	$this->product_name=isset($this->product_name)?$this->product_name:$product_name;	
+	// 	$this->product_name=isset($this->product_name)?$this->product_name:$product_name;
 	// 	$this->img_path=isset($this->img_path)?$this->img_path:$img_path;
 	// 	$this->description=isset($this->description)?$this->description:$description;
 	// 	$this->price=isset($this->price)?$this->price:$price;
@@ -46,7 +47,7 @@ class ProductClass{
 		if($conn->connect_errno){
 			echo "error connection to DB ".$conn->connect_error."<br>";
 			$success = false;
-		} //End of open connection  
+		} //End of open connection
 
 		$query = "insert into product (product_id,cat_id,product_name,img_path,description,price,quantity) values(?,?,?,?,?,?,?)";
 		$statement = $conn->prepare($query);
@@ -80,7 +81,7 @@ class ProductClass{
 			echo "error connection to DB ".$conn->connect_error."<br>";
 			$success = false;
 		} //End of open connection
-		
+
 
 		$query = "select * from product where product_id=?";
 		$statement = $conn->prepare($query);
@@ -114,7 +115,7 @@ class ProductClass{
 			echo "error connection to DB ".$conn->connect_error."<br>";
 			$success = false;
 		} //End of open connection
-		
+
 
 		$query = "select * from product where cat_id=?";
 		$statement = $conn->prepare($query);
@@ -122,7 +123,7 @@ class ProductClass{
 			echo "error preparing query : ".$conn->error."<br>";
 			$success = false;
 		}
-		
+
 		$result = $statement->bind_param("i",$cat_id);
 		if(!$result){
 			echo "binding failed : ".$statement->error;
@@ -138,7 +139,7 @@ class ProductClass{
 		$products = [];
 		$params = array('product_id','cat_id','product_name','img_path','description','price','quantity');
 		while($product = $result->fetch_object('ProductClass',$params)){
-			$products[] = $product; 
+			$products[] = $product;
 		}
 
 		$statement->close();
@@ -240,7 +241,7 @@ class ProductClass{
 		$products = [];
 		$params = array('product_id','cat_id','product_name','img_path','description','price','quantity');
 		while($product = $result->fetch_object('ProductClass',$params)){
-			$products[] = $product; 
+			$products[] = $product;
 		}
 
 		$statement->close();
@@ -321,7 +322,7 @@ class ProductClass{
 			$success = false;
 		} //End of open connection
 
-		$query = "update product set ucat_id=?,product_name=?,img_path=?,description=?,price=?,quantity=? where product_id=?";
+		$query = "update product set cat_id=?,product_name=?,img_path=?,description=?,price=?,quantity=? where product_id=?";
 		$statement = $conn->prepare($query);
 		if(!$statement){
 			echo "error preparing query : ".$conn->error."<br>";

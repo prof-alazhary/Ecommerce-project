@@ -1,7 +1,8 @@
 <?php
+require_once 'nav.php';
 require_once '../DBClasses/autoload.php';
 $categories = CategoryClass::getAllCategories();
-$products = ProductClass::getAllProducts();
+//$products = ProductClass::getAllProducts();
 // echo "<pre>";
 // var_dump($categories);
 // echo "</pre>";
@@ -58,6 +59,7 @@ else
                             echo "<div class='row' style='margin-top:10px;'>";
                             echo "<div class='col-md-12' style='margin-left:8%;color:Blue;'><h3>$category->cat_name</h3></div>";
                             echo "</div>";
+                            $products = ProductClass::getByCatId($category->cat_id);
                             foreach ($products as $product)
                             {
                                 echo "<div class='row' style='margin-top:10px; margin-left:5%;'>";

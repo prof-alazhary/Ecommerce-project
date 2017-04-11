@@ -13,8 +13,9 @@ else
     header('Location: login.php?error=your are not logged in');
 }
 if(isset($_POST['submit'])){
+  //  var_dump($_POST);
   user::update($_POST,$user->user_id);
-  // var_dump($user);
+
 }
 ?>
 <!DOCTYPE html>

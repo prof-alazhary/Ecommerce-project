@@ -1,5 +1,6 @@
 <?php
 session_start();
+require_once 'nav.php';
 if(isset($_SESSION['loggeduser']))
 {
     $user = $_SESSION['loggeduser'];

@@ -1,4 +1,5 @@
 <?php
+require_once 'nav.php';
 require_once '../DBClasses/autoload.php';
 	$cat_id=$_GET['cat_id'];
 	$products = ProductClass::getByCatId($cat_id);
